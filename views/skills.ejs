@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Skills Development - AI Career Predictor</title>
+   <link rel="stylesheet" href="/style.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <style>
+      /* Skills Page Specific Styles */
+      .skills-stats {
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         gap: var(--spacing-4);
+         margin: var(--spacing-6) 0;
+      }
+
+      .stats-card {
+         background: white;
+         padding: var(--spacing-4);
+         border-radius: var(--radius-xl);
+         border: 1px solid var(--neutral-200);
+         text-align: center;
+         box-shadow: var(--shadow-sm);
+         transition: all var(--transition-base) ease;
+      }
+
+      .stats-card:hover {
+         transform: translateY(-2px);
+         box-shadow: var(--shadow-md);
+      }
+
+      .stats-card .number {
+         font-size: var(--font-size-2xl);
+         font-weight: 800;
+         color: var(--primary-600);
+         display: block;
+      }
+
+      .stats-card .label {
+         font-size: var(--font-size-sm);
+         color: var(--neutral-500);
+         margin-top: var(--spacing-1);
+      }
+
+      .stats-card .icon {
+         font-size: var(--font-size-xl);
+         color: var(--primary-400);
+         margin-bottom: var(--spacing-2);
+      }
+
+      .category-section {
+         margin: var(--spacing-8) 0;
+      }
+
+      .category-header {
+         display: flex;
+         align-items: center;
+         gap: var(--spacing-3);
+         margin-bottom: var(--spacing-4);
+         padding-bottom: var(--spacing-3);
+         border-bottom: 2px solid var(--neutral-100);
+      }
+
+      .category-header .icon-container {
+         width: 48px;
+         height: 48px;
+         border-radius: var(--radius-lg);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: var(--font-size-xl);
+         color: white;
+      }
+
+      .category-header .icon-container.technical {
+         background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      }
+
+      .category-header .icon-container.soft {
+         background: linear-gradient(135deg, #14b8a6, #10b981);
+      }
+
+      .category-header .icon-container.industry {
+         background: linear-gradient(135deg, #f59e0b, #f97316);
+      }
+
+      .category-header .icon-container.certification {
+         background: linear-gradient(135deg, #ec4899, #f43f5e);
+      }
+
+      .category-header .category-info h3 {
+         font-size: var(--font-size-xl);
+         margin-bottom: var(--spacing-1);
+      }
+
+      .category-header .category-info p {
+         font-size: var(--font-size-sm);
+         color: var(--neutral-500);
+         margin: 0;
+      }
+
+      .category-header .count-badge {
+         margin-left: auto;
+         padding: var(--spacing-1) var(--spacing-3);
+         border-radius: var(--radius-full);
+         background: var(--neutral-100);
+         color: var(--neutral-600);
+         font-size: var(--font-size-sm);
+         font-weight: 600;
+      }
+
+      .skills-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+         gap: var(--spacing-4);
+      }
+
+      .skill-card {
+         background: white;
+         border-radius: var(--radius-xl);
+         border: 1px solid var(--neutral-200);
+         padding: var(--spacing-4);
+         transition: all var(--transition-base) ease;
+         box-shadow: var(--shadow-sm);
+      }
+
+      .skill-card:hover {
+         transform: translateY(-4px);
+         box-shadow: var(--shadow-xl);
+         border-color: var(--primary-200);
+      }
+
+      .skill-card .skill-header {
+         display: flex;
+         justify-content: space-between;
+         align-items: flex-start;
+         margin-bottom: var(--spacing-2);
+      }
+
+      .skill-card .skill-header h4 {
+         font-size: var(--font-size-base);
+         font-weight: 600;
+         color: var(--neutral-800);
+      }
+
+      .priority-badge {
+         padding: 2px 10px;
+         border-radius: var(--radius-full);
+         font-size: var(--font-size-xs);
+         font-weight: 600;
+      }
+
+      .priority-badge.high {
+         background: var(--error-50);
+         color: var(--error-600);
+      }
+
+      .priority-badge.medium {
+         background: var(--warning-50);
+         color: var(--warning-600);
+      }
+
+      .priority-badge.low {
+         background: var(--primary-50);
+         color: var(--primary-600);
+      }
+
+      .skill-card .skill-description {
+         font-size: var(--font-size-sm);
+         color: var(--neutral-600);
+         margin: var(--spacing-2) 0;
+      }
+
+      .skill-card .skill-meta {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: var(--spacing-2);
+         margin: var(--spacing-3) 0;
+         padding: var(--spacing-3);
+         background: var(--neutral-50);
+         border-radius: var(--radius-lg);
+      }
+
+      .skill-card .skill-meta .meta-item {
+         display: flex;
+         align-items: center;
+         gap: var(--spacing-2);
+         font-size: var(--font-size-sm);
+         color: var(--neutral-600);
+      }
+
+      .skill-card .skill-meta .meta-item i {
+         color: var(--primary-500);
+      }
+
+      .skill-card .skill-sources {
+         display: flex;
+         flex-wrap: wrap;
+         gap: var(--spacing-1);
+         margin: var(--spacing-2) 0;
+      }
+
+      .skill-card .source-tag {
+         padding: 2px 8px;
+         border-radius: var(--radius-full);
+         font-size: var(--font-size-xs);
+         background: var(--neutral-100);
+         color: var(--neutral-600);
+      }
+
+      .skill-card .resource-links {
+         display: flex;
+         flex-wrap: wrap;
+         gap: var(--spacing-2);
+         margin-top: var(--spacing-3);
+      }
+
+      .skill-card .resource-links .resource-link {
+         padding: 2px 12px;
+         border-radius: var(--radius-full);
+         font-size: var(--font-size-xs);
+         background: var(--primary-50);
+         color: var(--primary-600);
+         text-decoration: none;
+         transition: all var(--transition-base) ease;
+      }
+
+      .skill-card .resource-links .resource-link:hover {
+         background: var(--primary-100);
+         transform: translateY(-1px);
+      }
+
+      /* Roadmaps Section */
+      .roadmaps-section {
+         margin: var(--spacing-12) 0;
+      }
+
+      .roadmaps-grid {
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+         gap: var(--spacing-6);
+         margin: var(--spacing-6) 0;
+      }
+
+      .roadmap-card {
+         background: white;
+         border-radius: var(--radius-2xl);
+         border: 1px solid var(--neutral-200);
+         overflow: hidden;
+         transition: all var(--transition-base) ease;
+         box-shadow: var(--shadow-sm);
+      }
+
+      .roadmap-card:hover {
+         transform: translateY(-4px);
+         box-shadow: var(--shadow-xl);
+      }
+
+      .roadmap-card .roadmap-header {
+         padding: var(--spacing-4) var(--spacing-6);
+         color: white;
+      }
+
+      .roadmap-card .roadmap-header.beginner {
+         background: linear-gradient(135deg, #10b981, #059669);
+      }
+
+      .roadmap-card .roadmap-header.intermediate {
+         background: linear-gradient(135deg, #6366f1, #4f46e5);
+      }
+
+      .roadmap-card .roadmap-header.advanced {
+         background: linear-gradient(135deg, #f59e0b, #d97706);
+      }
+
+      .roadmap-card .roadmap-header h3 {
+         color: white;
+         font-size: var(--font-size-lg);
+         margin-bottom: var(--spacing-1);
+      }
+
+      .roadmap-card .roadmap-header p {
+         color: rgba(255, 255, 255, 0.8);
+         font-size: var(--font-size-sm);
+         margin: 0;
+      }
+
+      .roadmap-card .roadmap-body {
+         padding: var(--spacing-4) var(--spacing-6);
+      }
+
+      .roadmap-card .roadmap-body .roadmap-skill {
+         display: flex;
+         align-items: center;
+         gap: var(--spacing-2);
+         padding: var(--spacing-2) 0;
+         border-bottom: 1px solid var(--neutral-100);
+         font-size: var(--font-size-sm);
+      }
+
+      .roadmap-card .roadmap-body .roadmap-skill:last-child {
+         border-bottom: none;
+      }
+
+      .roadmap-card .roadmap-body .roadmap-skill i {
+         color: var(--primary-500);
+         font-size: var(--font-size-xs);
+      }
+
+      .roadmap-card .roadmap-body .roadmap-skill .time {
+         margin-left: auto;
+         color: var(--neutral-400);
+         font-size: var(--font-size-xs);
+      }
+
+      .roadmap-card .roadmap-footer {
+         padding: var(--spacing-3) var(--spacing-6);
+         background: var(--neutral-50);
+         border-top: 1px solid var(--neutral-200);
+         text-align: center;
+         font-size: var(--font-size-sm);
+         color: var(--neutral-600);
+      }
+
+      /* Timeline Section */
+      .timeline-section {
+         margin: var(--spacing-8) 0;
+         padding: var(--spacing-8);
+         background: white;
+         border-radius: var(--radius-2xl);
+         border: 1px solid var(--neutral-200);
+         box-shadow: var(--shadow-sm);
+      }
+
+      .timeline-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+         gap: var(--spacing-4);
+         margin-top: var(--spacing-4);
+      }
+
+      .timeline-item {
+         text-align: center;
+         padding: var(--spacing-4);
+         background: var(--neutral-50);
+         border-radius: var(--radius-lg);
+      }
+
+      .timeline-item .number {
+         font-size: var(--font-size-2xl);
+         font-weight: 800;
+         color: var(--primary-600);
+      }
+
+      .timeline-item .label {
+         font-size: var(--font-size-sm);
+         color: var(--neutral-500);
+         display: block;
+         margin-top: var(--spacing-1);
+      }
+
+      .timeline-progress {
+         margin-top: var(--spacing-4);
+         display: flex;
+         align-items: center;
+         gap: var(--spacing-4);
+      }
+
+      .timeline-progress .progress-bar {
+         flex: 1;
+         height: 8px;
+         background: var(--neutral-200);
+         border-radius: var(--radius-full);
+         overflow: hidden;
+      }
+
+      .timeline-progress .progress-fill {
+         height: 100%;
+         background: linear-gradient(90deg, var(--primary-500), var(--accent-500));
+         border-radius: var(--radius-full);
+         transition: width 1s ease;
+      }
+
+      .timeline-progress .progress-label {
+         font-size: var(--font-size-sm);
+         color: var(--neutral-600);
+         white-space: nowrap;
+      }
+
+      /* Learning Resources Section */
+      .resources-section {
+         margin: var(--spacing-8) 0;
+      }
+
+      .resources-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+         gap: var(--spacing-4);
+         margin: var(--spacing-4) 0;
+      }
+
+      .resource-card {
+         background: white;
+         border-radius: var(--radius-xl);
+         border: 1px solid var(--neutral-200);
+         padding: var(--spacing-4);
+         transition: all var(--transition-base) ease;
+         text-align: center;
+      }
+
+      .resource-card:hover {
+         transform: translateY(-2px);
+         box-shadow: var(--shadow-md);
+         border-color: var(--primary-200);
+      }
+
+      .resource-card .resource-icon {
+         font-size: var(--font-size-2xl);
+         color: var(--primary-500);
+         margin-bottom: var(--spacing-2);
+      }
+
+      .resource-card .resource-name {
+         font-weight: 600;
+         color: var(--neutral-800);
+         display: block;
+         margin-bottom: var(--spacing-1);
+      }
+
+      .resource-card .resource-type {
+         font-size: var(--font-size-xs);
+         color: var(--neutral-500);
+      }
+
+      .resource-card .resource-skill {
+         font-size: var(--font-size-xs);
+         color: var(--primary-600);
+         margin-top: var(--spacing-2);
+         display: block;
+      }
+
+      @media (max-width: 1024px) {
+         .roadmaps-grid {
+            grid-template-columns: 1fr 1fr;
+         }
+      }
+
+      @media (max-width: 768px) {
+         .skills-stats {
+            grid-template-columns: repeat(2, 1fr);
+         }
+
+         .skills-grid {
+            grid-template-columns: 1fr;
+         }
+
+         .roadmaps-grid {
+            grid-template-columns: 1fr;
+         }
+
+         .skill-card .skill-meta {
+            grid-template-columns: 1fr;
+         }
+
+         .timeline-grid {
+            grid-template-columns: 1fr 1fr;
+         }
+
+         .category-header {
+            flex-wrap: wrap;
+         }
+
+         .category-header .count-badge {
+            margin-left: 0;
+         }
+      }
+
+      @media (max-width: 480px) {
+         .skills-stats {
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2);
+         }
+
+         .stats-card {
+            padding: var(--spacing-3);
+         }
+
+         .stats-card .number {
+            font-size: var(--font-size-xl);
+         }
+
+         .timeline-grid {
+            grid-template-columns: 1fr;
+         }
+
+         .timeline-section {
+            padding: var(--spacing-4);
+         }
+
+         .resources-grid {
+            grid-template-columns: 1fr;
+         }
+      }
+   </style>
+</head>
+
+<body>
+   <nav class="navbar">
+      <div class="nav-container">
+         <div class="logo">
+            <a href="/">
+               <i class="fas fa-robot"></i>
+               <span>AI Career<span class="highlight">Predictor</span></span>
+            </a>
+         </div>
+         <button class="nav-toggle">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+         </button>
+         <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/assessment">Assessment</a></li>
+            <li><a href="/results">Results</a></li>
+            <li><a href="/scholarship">Scholarships</a></li>
+            <li><a href="/skills" class="active">Skills</a></li>
+         </ul>
+      </div>
+   </nav>
+
+   <main>
+      <!-- Hero Section -->
+      <section class="skills-hero">
+         <div class="container">
+            <div class="skills-header">
+               <h1><i class="fas fa-lightbulb"></i> Skills Development Plan</h1>
+               <p>Personalized learning recommendations to bridge your skill gaps and achieve your career goals</p>
+            </div>
+         </div>
+      </section>
+
+      <!-- Statistics -->
+      <section class="skills-stats-section">
+         <div class="container">
+            <div class="skills-stats">
+               <div class="stats-card">
+                  <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+                  <span class="number">
+                     <%= skills.existingSkills || 0 %>
+                  </span>
+                  <span class="label">Current Skills</span>
+               </div>
+               <div class="stats-card">
+                  <div class="icon"><i class="fas fa-flag"></i></div>
+                  <span class="number">
+                     <%= skills.skillGaps || 0 %>
+                  </span>
+                  <span class="label">Skills to Learn</span>
+               </div>
+               <div class="stats-card">
+                  <div class="icon"><i class="fas fa-clock"></i></div>
+                  <span class="number">
+                     <%= skills.timeline ? skills.timeline.totalMonths : 0 %>
+                  </span>
+                  <span class="label">Estimated Months</span>
+               </div>
+               <div class="stats-card">
+                  <div class="icon"><i class="fas fa-certificate"></i></div>
+                  <span class="number">
+                     <%= skills.categories ? Object.values(skills.categories).reduce((sum, cat)=> sum +
+                        cat.skills.length, 0) : 0 %>
+                  </span>
+                  <span class="label">Total Recommendations</span>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- Learning Roadmaps -->
+      <section class="roadmaps-section">
+         <div class="container">
+            <h2><i class="fas fa-map-signs"></i> Learning Roadmaps</h2>
+            <p class="section-description">Follow these structured learning paths to build your skills progressively</p>
+
+            <div class="roadmaps-grid">
+               <!-- Beginner Roadmap -->
+               <div class="roadmap-card">
+                  <div class="roadmap-header beginner">
+                     <h3><i class="fas fa-seedling"></i> Beginner Roadmap</h3>
+                     <p>Start your learning journey with foundational skills</p>
+                  </div>
+                  <div class="roadmap-body">
+                     <% if (skills.roadmaps && skills.roadmaps.beginner && skills.roadmaps.beginner.skills.length> 0) {
+                        %>
+                        <% skills.roadmaps.beginner.skills.slice(0, 6).forEach(skill=> { %>
+                           <div class="roadmap-skill">
+                              <i class="fas fa-circle"></i>
+                              <span>
+                                 <%= skill.name %>
+                              </span>
+                              <span class="time">
+                                 <%= skill.estimatedTime %>
+                              </span>
+                           </div>
+                           <% }) %>
+                              <% if (skills.roadmaps.beginner.skills.length> 6) { %>
+                                 <div
+                                    style="text-align: center; padding: var(--spacing-2); color: var(--neutral-500); font-size: var(--font-size-sm);">
+                                    +<%= skills.roadmaps.beginner.skills.length - 6 %> more skills
+                                 </div>
+                                 <% } %>
+                                    <% } else { %>
+                                       <div
+                                          style="text-align: center; padding: var(--spacing-4); color: var(--neutral-500);">
+                                          <i class="fas fa-check-circle" style="color: var(--success-500);"></i>
+                                          <p>You have no beginner-level skills to learn!</p>
+                                          <p style="font-size: var(--font-size-sm);">Great job on building your
+                                             foundation</p>
+                                       </div>
+                                       <% } %>
+                  </div>
+                  <div class="roadmap-footer">
+                     <%= skills.roadmaps && skills.roadmaps.beginner ? skills.roadmaps.beginner.skills.length : 0 %>
+                        skills to learn
+                  </div>
+               </div>
+
+               <!-- Intermediate Roadmap -->
+               <div class="roadmap-card">
+                  <div class="roadmap-header intermediate">
+                     <h3><i class="fas fa-layer-group"></i> Intermediate Roadmap</h3>
+                     <p>Build on your foundation with advanced concepts</p>
+                  </div>
+                  <div class="roadmap-body">
+                     <% if (skills.roadmaps && skills.roadmaps.intermediate &&
+                        skills.roadmaps.intermediate.skills.length> 0) { %>
+                        <% skills.roadmaps.intermediate.skills.slice(0, 6).forEach(skill=> { %>
+                           <div class="roadmap-skill">
+                              <i class="fas fa-circle"></i>
+                              <span>
+                                 <%= skill.name %>
+                              </span>
+                              <span class="time">
+                                 <%= skill.estimatedTime %>
+                              </span>
+                           </div>
+                           <% }) %>
+                              <% if (skills.roadmaps.intermediate.skills.length> 6) { %>
+                                 <div
+                                    style="text-align: center; padding: var(--spacing-2); color: var(--neutral-500); font-size: var(--font-size-sm);">
+                                    +<%= skills.roadmaps.intermediate.skills.length - 6 %> more skills
+                                 </div>
+                                 <% } %>
+                                    <% } else { %>
+                                       <div
+                                          style="text-align: center; padding: var(--spacing-4); color: var(--neutral-500);">
+                                          <i class="fas fa-check-circle" style="color: var(--success-500);"></i>
+                                          <p>No intermediate skills needed!</p>
+                                          <p style="font-size: var(--font-size-sm);">You're already intermediate in all
+                                             recommended areas</p>
+                                       </div>
+                                       <% } %>
+                  </div>
+                  <div class="roadmap-footer">
+                     <%= skills.roadmaps && skills.roadmaps.intermediate ? skills.roadmaps.intermediate.skills.length :
+                        0 %> skills to learn
+                  </div>
+               </div>
+
+               <!-- Advanced Roadmap -->
+               <div class="roadmap-card">
+                  <div class="roadmap-header advanced">
+                     <h3><i class="fas fa-rocket"></i> Advanced Roadmap</h3>
+                     <p>Master complex skills and industry best practices</p>
+                  </div>
+                  <div class="roadmap-body">
+                     <% if (skills.roadmaps && skills.roadmaps.advanced && skills.roadmaps.advanced.skills.length> 0) {
+                        %>
+                        <% skills.roadmaps.advanced.skills.slice(0, 6).forEach(skill=> { %>
+                           <div class="roadmap-skill">
+                              <i class="fas fa-circle"></i>
+                              <span>
+                                 <%= skill.name %>
+                              </span>
+                              <span class="time">
+                                 <%= skill.estimatedTime %>
+                              </span>
+                           </div>
+                           <% }) %>
+                              <% if (skills.roadmaps.advanced.skills.length> 6) { %>
+                                 <div
+                                    style="text-align: center; padding: var(--spacing-2); color: var(--neutral-500); font-size: var(--font-size-sm);">
+                                    +<%= skills.roadmaps.advanced.skills.length - 6 %> more skills
+                                 </div>
+                                 <% } %>
+                                    <% } else { %>
+                                       <div
+                                          style="text-align: center; padding: var(--spacing-4); color: var(--neutral-500);">
+                                          <i class="fas fa-check-circle" style="color: var(--success-500);"></i>
+                                          <p>No advanced skills needed!</p>
+                                          <p style="font-size: var(--font-size-sm);">You're already advanced in all
+                                             recommended areas</p>
+                                       </div>
+                                       <% } %>
+                  </div>
+                  <div class="roadmap-footer">
+                     <%= skills.roadmaps && skills.roadmaps.advanced ? skills.roadmaps.advanced.skills.length : 0 %>
+                        skills to learn
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- Timeline Estimate -->
+      <section class="timeline-section">
+         <div class="container">
+            <h3><i class="fas fa-clock"></i> Estimated Learning Timeline</h3>
+            <p style="color: var(--neutral-600);">Based on your recommended skills and typical learning times</p>
+
+            <div class="timeline-grid">
+               <div class="timeline-item">
+                  <span class="number">
+                     <%= skills.timeline ? skills.timeline.totalMonths : 0 %>
+                  </span>
+                  <span class="label">Total Months</span>
+               </div>
+               <div class="timeline-item">
+                  <span class="number">
+                     <%= skills.timeline ? skills.timeline.estimatedWeeks : 0 %>
+                  </span>
+                  <span class="label">Estimated Weeks</span>
+               </div>
+               <div class="timeline-item">
+                  <span class="number">
+                     <%= skills.timeline ? skills.timeline.breakdown.beginner : 0 %>
+                  </span>
+                  <span class="label">Beginner Skills</span>
+               </div>
+               <div class="timeline-item">
+                  <span class="number">
+                     <%= skills.timeline ? skills.timeline.breakdown.intermediate : 0 %>
+                  </span>
+                  <span class="label">Intermediate Skills</span>
+               </div>
+               <div class="timeline-item">
+                  <span class="number">
+                     <%= skills.timeline ? skills.timeline.breakdown.advanced : 0 %>
+                  </span>
+                  <span class="label">Advanced Skills</span>
+               </div>
+               <div class="timeline-item">
+                  <span class="number">
+                     <%= skills.totalSkills || 0 %>
+                  </span>
+                  <span class="label">Total Skills</span>
+               </div>
+            </div>
+
+            <div class="timeline-progress">
+               <span style="font-size: var(--font-size-sm); color: var(--neutral-500);">Learning Progress</span>
+               <div class="progress-bar">
+                  <div class="progress-fill" style="width: 0%;"></div>
+               </div>
+               <span class="progress-label">0% Complete</span>
+            </div>
+         </div>
+      </section>
+
+      <!-- Skill Categories -->
+      <section class="skill-categories">
+         <div class="container">
+            <h2><i class="fas fa-th-list"></i> Skill Categories</h2>
+            <p class="section-description">Explore personalized recommendations across different skill areas</p>
+
+            <% if (skills.categories) { %>
+               <% Object.keys(skills.categories).forEach(categoryKey=> { %>
+                  <% const category=skills.categories[categoryKey]; %>
+                     <% if (category.skills.length> 0) { %>
+                        <div class="category-section">
+                           <div class="category-header">
+                              <div class="icon-container <%= categoryKey %>">
+                                 <i class="fas <%= category.icon %>"></i>
+                              </div>
+                              <div class="category-info">
+                                 <h3>
+                                    <%= category.name %>
+                                 </h3>
+                                 <p>
+                                    <%= category.description %>
+                                 </p>
+                              </div>
+                              <span class="count-badge">
+                                 <%= category.skills.length %> skills
+                              </span>
+                           </div>
+
+                           <div class="skills-grid">
+                              <% category.skills.slice(0, 8).forEach(skill=> { %>
+                                 <div class="skill-card">
+                                    <div class="skill-header">
+                                       <h4>
+                                          <%= skill.name %>
+                                       </h4>
+                                       <span
+                                          class="priority-badge <%= skill.priority >= 70 ? 'high' : skill.priority >= 40 ? 'medium' : 'low' %>">
+                                          <%= skill.priority >= 70 ? 'High Priority' : skill.priority >= 40 ? 'Medium Priority' : 'Low Priority' %>
+                                       </span>
+                                    </div>
+                                    <p class="skill-description">
+                                       <%= skill.description || 'Essential skill for career development' %>
+                                    </p>
+
+                                    <div class="skill-meta">
+                                       <div class="meta-item">
+                                          <i class="fas fa-clock"></i>
+                                          <span>
+                                             <%= skill.estimatedTime || '2-3 months' %>
+                                          </span>
+                                       </div>
+                                       <div class="meta-item">
+                                          <i class="fas fa-level-up-alt"></i>
+                                          <span>
+                                             <%= skill.level ? skill.level.charAt(0).toUpperCase() +
+                                                skill.level.slice(1) : 'Intermediate' %>
+                                          </span>
+                                       </div>
+                                       <div class="meta-item">
+                                          <i class="fas fa-check-circle"></i>
+                                          <span>Match: <%= skill.priority %>%</span>
+                                       </div>
+                                       <div class="meta-item">
+                                          <i class="fas fa-certificate"></i>
+                                          <span>Certifications: <%= skill.certifications ? skill.certifications.length :
+                                                0 %></span>
+                                       </div>
+                                    </div>
+
+                                    <% if (skill.matchReason) { %>
+                                       <div
+                                          style="font-size: var(--font-size-xs); color: var(--neutral-500); margin: var(--spacing-2) 0;">
+                                          <i class="fas fa-info-circle"></i>
+                                          <%= skill.matchReason %>
+                                       </div>
+                                       <% } %>
+
+                                          <div class="skill-sources">
+                                             <% if (skill.sources) { %>
+                                                <% skill.sources.slice(0, 3).forEach(source=> { %>
+                                                   <span class="source-tag">
+                                                      <%= source %>
+                                                   </span>
+                                                   <% }) %>
+                                                      <% } %>
+                                          </div>
+
+                                          <% if (skill.resources && skill.resources.length> 0) { %>
+                                             <div class="resource-links">
+                                                <% skill.resources.slice(0, 3).forEach(resource=> { %>
+                                                   <a href="#" class="resource-link">
+                                                      <%= resource %>
+                                                   </a>
+                                                   <% }) %>
+                                             </div>
+                                             <% } %>
+
+                                                <% if (skill.certifications && skill.certifications.length> 0) { %>
+                                                   <div style="margin-top: var(--spacing-2);">
+                                                      <span
+                                                         style="font-size: var(--font-size-xs); color: var(--primary-600);">
+                                                         <i class="fas fa-certificate"></i>
+                                                         <%= skill.certifications.join(', ') %>
+                                        </span>
+                                    </div>
+                                    <% } %>
+                                </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                        <% } %>
+                    <% }) %>
+                <% } %>
+            </div>
+        </section>
+
+        <!-- Learning Resources -->
+        <section class="resources-section">
+            <div class="container">
+                <h2><i class="fas fa-book-open"></i> Recommended Learning Resources</h2>
+                <p class="section-description">Top resources to help you develop your skills</p>
+
+                <div class="resources-grid">
+                    <% if (skills.resources && skills.resources.length > 0) { %>
+                        <% skills.resources.slice(0, 12).forEach(resource => { %>
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <i class="fas <%= resource.type === ' Online Course' ? 'fa-video' :
+                                                            resource.type==='Documentation' ? 'fa-file-alt' :
+                                                            resource.type==='Practice Platform' ? 'fa-laptop-code' :
+                                                            resource.type==='Workshop' ? 'fa-users' :
+                                                            resource.type==='Official Training' ? 'fa-certificate'
+                                                            : 'fa-graduation-cap' %>"></i>
+                                                   </div>
+                                                   <span class="resource-name">
+                                                      <%= resource.name %>
+                                                   </span>
+                                                   <span class="resource-type">
+                                                      <%= resource.type || 'Learning Resource' %>
+                                                   </span>
+                                                   <span class="resource-skill">For: <%= resource.skillName %></span>
+                                 </div>
+                                 <% }) %>
+                                    <% } else { %>
+                                       <div
+                                          style="grid-column: 1 / -1; text-align: center; padding: var(--spacing-8); color: var(--neutral-500);">
+                                          <i class="fas fa-book"
+                                             style="font-size: var(--font-size-3xl); display: block; margin-bottom: var(--spacing-4);"></i>
+                                          <p>Complete your assessment to get personalized learning resources</p>
+                                          <a href="/assessment" class="btn btn-primary"
+                                             style="margin-top: var(--spacing-4);">Take Assessment</a>
+                                       </div>
+                                       <% } %>
+                           </div>
+                        </div>
+      </section>
+
+      <!-- Next Steps -->
+      <section class="skills-cta">
+         <div class="container">
+            <div class="cta-box">
+               <h3>Ready to start learning?</h3>
+               <p>Begin your skill development journey with these recommended resources and roadmaps</p>
+               <div class="cta-buttons">
+                  <a href="/results" class="btn btn-secondary"><i class="fas fa-chart-bar"></i> View Career Results</a>
+                  <a href="/scholarship" class="btn btn-secondary"><i class="fas fa-dollar-sign"></i> View
+                     Scholarships</a>
+                  <a href="/assessment" class="btn btn-secondary"><i class="fas fa-edit"></i> Retake Assessment</a>
+               </div>
+            </div>
+         </div>
+      </section>
+   </main>
+
+   <footer class="footer">
+      <div class="footer-container">
+         <div class="footer-grid">
+            <div class="footer-brand">
+               <div class="logo">
+                  <i class="fas fa-robot"></i>
+                  <span>AI Career<span class="highlight">Predictor</span></span>
+               </div>
+               <p>Empowering students to make informed career decisions through AI-powered insights.</p>
+               <div class="social-links">
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+               </div>
+            </div>
+            <div class="footer-links">
+               <h4>Platform</h4>
+               <ul>
+                  <li><a href="/assessment">Assessment</a></li>
+                  <li><a href="/results">Results</a></li>
+                  <li><a href="/scholarship">Scholarships</a></li>
+                  <li><a href="/skills">Skills</a></li>
+               </ul>
+            </div>
+            <div class="footer-links">
+               <h4>Resources</h4>
+               <ul>
+                  <li><a href="#">Career Guide</a></li>
+                  <li><a href="#">Success Stories</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="#">Blog</a></li>
+               </ul>
+            </div>
+            <div class="footer-links">
+               <h4>Company</h4>
+               <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms of Service</a></li>
+               </ul>
+            </div>
+         </div>
+         <div class="footer-bottom">
+            <p>&copy; 2026 AI Career Predictor. All rights reserved.</p>
+            <p class="footer-tech">Powered by <i class="fas fa-microchip"></i> AI Technology</p>
+         </div>
+      </div>
+   </footer>
+
+   <script>
+      // Animate timeline progress on load
+      document.addEventListener('DOMContentLoaded', function () {
+         const progressFill = document.querySelector('.timeline-progress .progress-fill');
+         const progressLabel = document.querySelector('.timeline-progress .progress-label');
+
+         if (progressFill) {
+            setTimeout(() => {
+               const totalSkills = <%= skills.totalSkills || 0 %>;
+               const existingSkills = <%= skills.existingSkills || 0 %>;
+               const total = totalSkills + existingSkills;
+               const progress = total > 0 ? (existingSkills / total) * 100 : 0;
+
+               progressFill.style.width = Math.min(progress, 100) + '%';
+               if (progressLabel) {
+                  progressLabel.textContent = Math.round(Math.min(progress, 100)) + '% Complete';
+               }
+            }, 500);
+         }
+      });
+   </script>
+   <script src="/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Career Assessment - AI Career Predictor</title>
+   <link rel="stylesheet" href="/style.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+   <!-- Navigation -->
+   <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <div class="nav-container">
+         <div class="logo">
+            <a href="/">
+               <i class="fas fa-robot" aria-hidden="true"></i>
+               <span>AI Career<span class="highlight">Predictor</span></span>
+            </a>
+         </div>
+         <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+         </button>
+         <ul class="nav-links" role="menubar">
+            <li role="none"><a href="/" role="menuitem">Home</a></li>
+            <li role="none"><a href="/assessment" role="menuitem" class="active">Assessment</a></li>
+            <li role="none"><a href="/results" role="menuitem">Results</a></li>
+            <li role="none"><a href="/scholarship" role="menuitem">Scholarships</a></li>
+            <li role="none"><a href="/skills" role="menuitem">Skills</a></li>
+         </ul>
+      </div>
+   </nav>
+
+   <main>
+      <!-- Assessment Hero -->
+      <section class="assessment-hero">
+         <div class="container">
+            <div class="assessment-header">
+               <h1><i class="fas fa-clipboard-list"></i> Career Assessment</h1>
+               <p>Complete all 7 steps to receive personalized career recommendations</p>
+            </div>
+         </div>
+      </section>
+
+      <!-- Assessment Form -->
+      <section class="assessment-form">
+         <div class="container">
+            <form id="assessmentForm" action="/assessment" method="POST" class="form-container" novalidate>
+               <!-- Hidden step field -->
+               <input type="hidden" name="step" id="currentStep" value="1">
+
+               <!-- Progress Bar -->
+               <div class="form-progress">
+                  <div class="progress-bar">
+                     <div class="progress-fill" id="progressFill" style="width: 14.28%;"></div>
+                  </div>
+                  <div class="progress-steps">
+                     <span class="step-indicator active" data-step="1">1</span>
+                     <span class="step-indicator" data-step="2">2</span>
+                     <span class="step-indicator" data-step="3">3</span>
+                     <span class="step-indicator" data-step="4">4</span>
+                     <span class="step-indicator" data-step="5">5</span>
+                     <span class="step-indicator" data-step="6">6</span>
+                     <span class="step-indicator" data-step="7">7</span>
+                  </div>
+               </div>
+
+               <!-- ======================================== -->
+               <!-- STEP 1: Student Information -->
+               <!-- ======================================== -->
+               <div class="form-step active" data-step="1">
+                  <h2><i class="fas fa-user-graduate"></i> Student Information</h2>
+                  <p class="step-description">Tell us about yourself so we can personalize your recommendations.</p>
+
+                  <div class="form-grid">
+                     <div class="form-group">
+                        <label for="studentName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="studentName" name="studentName" placeholder="Enter your full name"
+                           value="<%= typeof formData !== 'undefined' && formData.studentName ? formData.studentName : '' %>"
+                           required>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="studentAge">Age <span class="required">*</span></label>
+                        <input type="number" id="studentAge" name="studentAge" placeholder="Enter your age" min="14"
+                           max="25"
+                           value="<%= typeof formData !== 'undefined' && formData.studentAge ? formData.studentAge : '' %>"
+                           required>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="gender">Gender <span class="required">*</span></label>
+                        <select id="gender" name="gender" required>
+                           <option value="">Select gender</option>
+                           <option value="male" <%=typeof formData !=='undefined' && formData.gender==='male'
+                              ? 'selected' : '' %>>Male</option>
+                           <option value="female" <%=typeof formData !=='undefined' && formData.gender==='female'
+                              ? 'selected' : '' %>>Female</option>
+                           <option value="non-binary" <%=typeof formData !=='undefined' &&
+                              formData.gender==='non-binary' ? 'selected' : '' %>>Non-binary</option>
+                           <option value="prefer-not" <%=typeof formData !=='undefined' &&
+                              formData.gender==='prefer-not' ? 'selected' : '' %>>Prefer not to say</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="schoolLevel">Current School Level <span class="required">*</span></label>
+                        <select id="schoolLevel" name="schoolLevel" required>
+                           <option value="">Select school level</option>
+                           <option value="ss1" <%=typeof formData !=='undefined' && formData.schoolLevel==='ss1'
+                              ? 'selected' : '' %>>SS1</option>
+                           <option value="ss2" <%=typeof formData !=='undefined' && formData.schoolLevel==='ss2'
+                              ? 'selected' : '' %>>SS2</option>
+                           <option value="ss3" <%=typeof formData !=='undefined' && formData.schoolLevel==='ss3'
+                              ? 'selected' : '' %>>SS3</option>
+                           <option value="undergraduate" <%=typeof formData !=='undefined' &&
+                              formData.schoolLevel==='undergraduate' ? 'selected' : '' %>>Undergraduate</option>
+                           <option value="postgraduate" <%=typeof formData !=='undefined' &&
+                              formData.schoolLevel==='postgraduate' ? 'selected' : '' %>>Postgraduate</option>
+                           <option value="graduate" <%=typeof formData !=='undefined' &&
+                              formData.schoolLevel==='graduate' ? 'selected' : '' %>>Graduate</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="stateOfOrigin">State of Origin <span class="required">*</span></label>
+                        <select id="stateOfOrigin" name="stateOfOrigin" required>
+                           <option value="">Select your state</option>
+                           <option value="abia" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='abia'
+                              ? 'selected' : '' %>>Abia</option>
+                           <option value="adamawa" <%=typeof formData !=='undefined' &&
+                              formData.stateOfOrigin==='adamawa' ? 'selected' : '' %>>Adamawa</option>
+                           <option value="akwa-ibom" <%=typeof formData !=='undefined' &&
+                              formData.stateOfOrigin==='akwa-ibom' ? 'selected' : '' %>>Akwa Ibom</option>
+                           <option value="anambra" <%=typeof formData !=='undefined' &&
+                              formData.stateOfOrigin==='anambra' ? 'selected' : '' %>>Anambra</option>
+                           <option value="bauchi" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='bauchi'
+                              ? 'selected' : '' %>>Bauchi</option>
+                           <option value="bayelsa" <%=typeof formData !=='undefined' &&
+                              formData.stateOfOrigin==='bayelsa' ? 'selected' : '' %>>Bayelsa</option>
+                           <option value="benue" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='benue'
+                              ? 'selected' : '' %>>Benue</option>
+                           <option value="borno" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='borno'
+                              ? 'selected' : '' %>>Borno</option>
+                           <option value="cross-river" <%=typeof formData !=='undefined' &&
+                              formData.stateOfOrigin==='cross-river' ? 'selected' : '' %>>Cross River</option>
+                           <option value="delta" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='delta'
+                              ? 'selected' : '' %>>Delta</option>
+                           <option value="ebonyi" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='ebonyi'
+                              ? 'selected' : '' %>>Ebonyi</option>
+                           <option value="edo" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='edo'
+                              ? 'selected' : '' %>>Edo</option>
+                           <option value="ekiti" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='ekiti'
+                              ? 'selected' : '' %>>Ekiti</option>
+                           <option value="enugu" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='enugu'
+                              ? 'selected' : '' %>>Enugu</option>
+                           <option value="fct" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='fct'
+                              ? 'selected' : '' %>>FCT Abuja</option>
+                           <option value="gombe" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='gombe'
+                              ? 'selected' : '' %>>Gombe</option>
+                           <option value="imo" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='imo'
+                              ? 'selected' : '' %>>Imo</option>
+                           <option value="jigawa" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='jigawa'
+                              ? 'selected' : '' %>>Jigawa</option>
+                           <option value="kaduna" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='kaduna'
+                              ? 'selected' : '' %>>Kaduna</option>
+                           <option value="kano" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='kano'
+                              ? 'selected' : '' %>>Kano</option>
+                           <option value="katsina" <%=typeof formData !=='undefined' &&
+                              formData.stateOfOrigin==='katsina' ? 'selected' : '' %>>Katsina</option>
+                           <option value="kebbi" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='kebbi'
+                              ? 'selected' : '' %>>Kebbi</option>
+                           <option value="kogi" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='kogi'
+                              ? 'selected' : '' %>>Kogi</option>
+                           <option value="kwara" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='kwara'
+                              ? 'selected' : '' %>>Kwara</option>
+                           <option value="lagos" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='lagos'
+                              ? 'selected' : '' %>>Lagos</option>
+                           <option value="nasarawa" <%=typeof formData !=='undefined' &&
+                              formData.stateOfOrigin==='nasarawa' ? 'selected' : '' %>>Nasarawa</option>
+                           <option value="niger" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='niger'
+                              ? 'selected' : '' %>>Niger</option>
+                           <option value="ogun" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='ogun'
+                              ? 'selected' : '' %>>Ogun</option>
+                           <option value="ondo" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='ondo'
+                              ? 'selected' : '' %>>Ondo</option>
+                           <option value="osun" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='osun'
+                              ? 'selected' : '' %>>Osun</option>
+                           <option value="oyo" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='oyo'
+                              ? 'selected' : '' %>>Oyo</option>
+                           <option value="plateau" <%=typeof formData !=='undefined' &&
+                              formData.stateOfOrigin==='plateau' ? 'selected' : '' %>>Plateau</option>
+                           <option value="rivers" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='rivers'
+                              ? 'selected' : '' %>>Rivers</option>
+                           <option value="sokoto" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='sokoto'
+                              ? 'selected' : '' %>>Sokoto</option>
+                           <option value="taraba" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='taraba'
+                              ? 'selected' : '' %>>Taraba</option>
+                           <option value="yobe" <%=typeof formData !=='undefined' && formData.stateOfOrigin==='yobe'
+                              ? 'selected' : '' %>>Yobe</option>
+                           <option value="zamfara" <%=typeof formData !=='undefined' &&
+                              formData.stateOfOrigin==='zamfara' ? 'selected' : '' %>>Zamfara</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="nationality">Nationality <span class="required">*</span></label>
+                        <select id="nationality" name="nationality" required>
+                           <option value="">Select nationality</option>
+                           <option value="nigerian" <%=typeof formData !=='undefined' &&
+                              formData.nationality==='nigerian' ? 'selected' : '' %>>Nigerian</option>
+                           <option value="other" <%=typeof formData !=='undefined' && formData.nationality==='other'
+                              ? 'selected' : '' %>>Other</option>
+                        </select>
+                     </div>
+                  </div>
+
+                  <div class="form-navigation">
+                     <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next Step <i class="fas fa-arrow-right"></i>
+                     </button>
+                  </div>
+               </div>
+
+               <!-- ======================================== -->
+               <!-- STEP 2: Academic Performance -->
+               <!-- ======================================== -->
+               <div class="form-step" data-step="2">
+                  <h2><i class="fas fa-chart-line"></i> Academic Performance</h2>
+                  <p class="step-description">Share your WAEC/NECO grades (A1-F9) to help us understand your academic
+                     strengths.</p>
+
+                  <div class="form-grid">
+                     <div class="form-group">
+                        <label for="mathGrade">Mathematics <span class="required">*</span></label>
+                        <select id="mathGrade" name="mathGrade" required>
+                           <option value="">Select grade</option>
+                           <option value="95" <%=typeof formData !=='undefined' && formData.mathGrade==='95'
+                              ? 'selected' : '' %>>A1 (95%)</option>
+                           <option value="85" <%=typeof formData !=='undefined' && formData.mathGrade==='85'
+                              ? 'selected' : '' %>>B2 (85%)</option>
+                           <option value="78" <%=typeof formData !=='undefined' && formData.mathGrade==='78'
+                              ? 'selected' : '' %>>B3 (78%)</option>
+                           <option value="70" <%=typeof formData !=='undefined' && formData.mathGrade==='70'
+                              ? 'selected' : '' %>>C4 (70%)</option>
+                           <option value="65" <%=typeof formData !=='undefined' && formData.mathGrade==='65'
+                              ? 'selected' : '' %>>C5 (65%)</option>
+                           <option value="60" <%=typeof formData !=='undefined' && formData.mathGrade==='60'
+                              ? 'selected' : '' %>>C6 (60%)</option>
+                           <option value="55" <%=typeof formData !=='undefined' && formData.mathGrade==='55'
+                              ? 'selected' : '' %>>D7 (55%)</option>
+                           <option value="50" <%=typeof formData !=='undefined' && formData.mathGrade==='50'
+                              ? 'selected' : '' %>>E8 (50%)</option>
+                           <option value="40" <%=typeof formData !=='undefined' && formData.mathGrade==='40'
+                              ? 'selected' : '' %>>F9 (40%)</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="englishGrade">English Language <span class="required">*</span></label>
+                        <select id="englishGrade" name="englishGrade" required>
+                           <option value="">Select grade</option>
+                           <option value="95" <%=typeof formData !=='undefined' && formData.englishGrade==='95'
+                              ? 'selected' : '' %>>A1 (95%)</option>
+                           <option value="85" <%=typeof formData !=='undefined' && formData.englishGrade==='85'
+                              ? 'selected' : '' %>>B2 (85%)</option>
+                           <option value="78" <%=typeof formData !=='undefined' && formData.englishGrade==='78'
+                              ? 'selected' : '' %>>B3 (78%)</option>
+                           <option value="70" <%=typeof formData !=='undefined' && formData.englishGrade==='70'
+                              ? 'selected' : '' %>>C4 (70%)</option>
+                           <option value="65" <%=typeof formData !=='undefined' && formData.englishGrade==='65'
+                              ? 'selected' : '' %>>C5 (65%)</option>
+                           <option value="60" <%=typeof formData !=='undefined' && formData.englishGrade==='60'
+                              ? 'selected' : '' %>>C6 (60%)</option>
+                           <option value="55" <%=typeof formData !=='undefined' && formData.englishGrade==='55'
+                              ? 'selected' : '' %>>D7 (55%)</option>
+                           <option value="50" <%=typeof formData !=='undefined' && formData.englishGrade==='50'
+                              ? 'selected' : '' %>>E8 (50%)</option>
+                           <option value="40" <%=typeof formData !=='undefined' && formData.englishGrade==='40'
+                              ? 'selected' : '' %>>F9 (40%)</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="biologyGrade">Biology <span class="required">*</span></label>
+                        <select id="biologyGrade" name="biologyGrade" required>
+                           <option value="">Select grade</option>
+                           <option value="95" <%=typeof formData !=='undefined' && formData.biologyGrade==='95'
+                              ? 'selected' : '' %>>A1 (95%)</option>
+                           <option value="85" <%=typeof formData !=='undefined' && formData.biologyGrade==='85'
+                              ? 'selected' : '' %>>B2 (85%)</option>
+                           <option value="78" <%=typeof formData !=='undefined' && formData.biologyGrade==='78'
+                              ? 'selected' : '' %>>B3 (78%)</option>
+                           <option value="70" <%=typeof formData !=='undefined' && formData.biologyGrade==='70'
+                              ? 'selected' : '' %>>C4 (70%)</option>
+                           <option value="65" <%=typeof formData !=='undefined' && formData.biologyGrade==='65'
+                              ? 'selected' : '' %>>C5 (65%)</option>
+                           <option value="60" <%=typeof formData !=='undefined' && formData.biologyGrade==='60'
+                              ? 'selected' : '' %>>C6 (60%)</option>
+                           <option value="55" <%=typeof formData !=='undefined' && formData.biologyGrade==='55'
+                              ? 'selected' : '' %>>D7 (55%)</option>
+                           <option value="50" <%=typeof formData !=='undefined' && formData.biologyGrade==='50'
+                              ? 'selected' : '' %>>E8 (50%)</option>
+                           <option value="40" <%=typeof formData !=='undefined' && formData.biologyGrade==='40'
+                              ? 'selected' : '' %>>F9 (40%)</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="chemistryGrade">Chemistry <span class="required">*</span></label>
+                        <select id="chemistryGrade" name="chemistryGrade" required>
+                           <option value="">Select grade</option>
+                           <option value="95" <%=typeof formData !=='undefined' && formData.chemistryGrade==='95'
+                              ? 'selected' : '' %>>A1 (95%)</option>
+                           <option value="85" <%=typeof formData !=='undefined' && formData.chemistryGrade==='85'
+                              ? 'selected' : '' %>>B2 (85%)</option>
+                           <option value="78" <%=typeof formData !=='undefined' && formData.chemistryGrade==='78'
+                              ? 'selected' : '' %>>B3 (78%)</option>
+                           <option value="70" <%=typeof formData !=='undefined' && formData.chemistryGrade==='70'
+                              ? 'selected' : '' %>>C4 (70%)</option>
+                           <option value="65" <%=typeof formData !=='undefined' && formData.chemistryGrade==='65'
+                              ? 'selected' : '' %>>C5 (65%)</option>
+                           <option value="60" <%=typeof formData !=='undefined' && formData.chemistryGrade==='60'
+                              ? 'selected' : '' %>>C6 (60%)</option>
+                           <option value="55" <%=typeof formData !=='undefined' && formData.chemistryGrade==='55'
+                              ? 'selected' : '' %>>D7 (55%)</option>
+                           <option value="50" <%=typeof formData !=='undefined' && formData.chemistryGrade==='50'
+                              ? 'selected' : '' %>>E8 (50%)</option>
+                           <option value="40" <%=typeof formData !=='undefined' && formData.chemistryGrade==='40'
+                              ? 'selected' : '' %>>F9 (40%)</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="physicsGrade">Physics <span class="required">*</span></label>
+                        <select id="physicsGrade" name="physicsGrade" required>
+                           <option value="">Select grade</option>
+                           <option value="95" <%=typeof formData !=='undefined' && formData.physicsGrade==='95'
+                              ? 'selected' : '' %>>A1 (95%)</option>
+                           <option value="85" <%=typeof formData !=='undefined' && formData.physicsGrade==='85'
+                              ? 'selected' : '' %>>B2 (85%)</option>
+                           <option value="78" <%=typeof formData !=='undefined' && formData.physicsGrade==='78'
+                              ? 'selected' : '' %>>B3 (78%)</option>
+                           <option value="70" <%=typeof formData !=='undefined' && formData.physicsGrade==='70'
+                              ? 'selected' : '' %>>C4 (70%)</option>
+                           <option value="65" <%=typeof formData !=='undefined' && formData.physicsGrade==='65'
+                              ? 'selected' : '' %>>C5 (65%)</option>
+                           <option value="60" <%=typeof formData !=='undefined' && formData.physicsGrade==='60'
+                              ? 'selected' : '' %>>C6 (60%)</option>
+                           <option value="55" <%=typeof formData !=='undefined' && formData.physicsGrade==='55'
+                              ? 'selected' : '' %>>D7 (55%)</option>
+                           <option value="50" <%=typeof formData !=='undefined' && formData.physicsGrade==='50'
+                              ? 'selected' : '' %>>E8 (50%)</option>
+                           <option value="40" <%=typeof formData !=='undefined' && formData.physicsGrade==='40'
+                              ? 'selected' : '' %>>F9 (40%)</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="governmentGrade">Government <span class="required">*</span></label>
+                        <select id="governmentGrade" name="governmentGrade" required>
+                           <option value="">Select grade</option>
+                           <option value="95" <%=typeof formData !=='undefined' && formData.governmentGrade==='95'
+                              ? 'selected' : '' %>>A1 (95%)</option>
+                           <option value="85" <%=typeof formData !=='undefined' && formData.governmentGrade==='85'
+                              ? 'selected' : '' %>>B2 (85%)</option>
+                           <option value="78" <%=typeof formData !=='undefined' && formData.governmentGrade==='78'
+                              ? 'selected' : '' %>>B3 (78%)</option>
+                           <option value="70" <%=typeof formData !=='undefined' && formData.governmentGrade==='70'
+                              ? 'selected' : '' %>>C4 (70%)</option>
+                           <option value="65" <%=typeof formData !=='undefined' && formData.governmentGrade==='65'
+                              ? 'selected' : '' %>>C5 (65%)</option>
+                           <option value="60" <%=typeof formData !=='undefined' && formData.governmentGrade==='60'
+                              ? 'selected' : '' %>>C6 (60%)</option>
+                           <option value="55" <%=typeof formData !=='undefined' && formData.governmentGrade==='55'
+                              ? 'selected' : '' %>>D7 (55%)</option>
+                           <option value="50" <%=typeof formData !=='undefined' && formData.governmentGrade==='50'
+                              ? 'selected' : '' %>>E8 (50%)</option>
+                           <option value="40" <%=typeof formData !=='undefined' && formData.governmentGrade==='40'
+                              ? 'selected' : '' %>>F9 (40%)</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group">
+                        <label for="literatureGrade">Literature in English <span class="required">*</span></label>
+                        <select id="literatureGrade" name="literatureGrade" required>
+                           <option value="">Select grade</option>
+                           <option value="95" <%=typeof formData !=='undefined' && formData.literatureGrade==='95'
+                              ? 'selected' : '' %>>A1 (95%)</option>
+                           <option value="85" <%=typeof formData !=='undefined' && formData.literatureGrade==='85'
+                              ? 'selected' : '' %>>B2 (85%)</option>
+                           <option value="78" <%=typeof formData !=='undefined' && formData.literatureGrade==='78'
+                              ? 'selected' : '' %>>B3 (78%)</option>
+                           <option value="70" <%=typeof formData !=='undefined' && formData.literatureGrade==='70'
+                              ? 'selected' : '' %>>C4 (70%)</option>
+                           <option value="65" <%=typeof formData !=='undefined' && formData.literatureGrade==='65'
+                              ? 'selected' : '' %>>C5 (65%)</option>
+                           <option value="60" <%=typeof formData !=='undefined' && formData.literatureGrade==='60'
+                              ? 'selected' : '' %>>C6 (60%)</option>
+                           <option value="55" <%=typeof formData !=='undefined' && formData.literatureGrade==='55'
+                              ? 'selected' : '' %>>D7 (55%)</option>
+                           <option value="50" <%=typeof formData !=='undefined' && formData.literatureGrade==='50'
+                              ? 'selected' : '' %>>E8 (50%)</option>
+                           <option value="40" <%=typeof formData !=='undefined' && formData.literatureGrade==='40'
+                              ? 'selected' : '' %>>F9 (40%)</option>
+                        </select>
+                     </div>
+
+                     <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="overallWAEC">Overall WAEC/NECO Score <span class="required">*</span></label>
+                        <input type="number" id="overallWAEC" name="overallWAEC"
+                           placeholder="Enter your overall score (0-100)" min="0" max="100"
+                           value="<%= typeof formData !== 'undefined' && formData.overallWAEC ? formData.overallWAEC : '' %>"
+                           required>
+                     </div>
+                  </div>
+
+                  <div class="form-navigation">
+                     <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                     </button>
+                     <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next Step <i class="fas fa-arrow-right"></i>
+                     </button>
+                  </div>
+               </div>
+
+               <!-- ======================================== -->
+               <!-- STEP 3: Favorite Subjects -->
+               <!-- ======================================== -->
+               <div class="form-step" data-step="3">
+                  <h2><i class="fas fa-book-open"></i> Favorite Subjects</h2>
+                  <p class="step-description">Select all subjects you enjoy and excel in from the Nigerian curriculum.
+                  </p>
+
+                  <div class="checkbox-grid">
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Mathematics" <%=typeof formData
+                           !=='undefined' && formData.favoriteSubjects &&
+                           formData.favoriteSubjects.indexOf('Mathematics') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-calculator"></i>
+                           <span>Mathematics</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="English Language" <%=typeof formData !=='undefined' && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('English Language') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-book"></i>
+                           <span>English Language</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Biology" <%=typeof formData !=='undefined'
+                           && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Biology') !==-1
+                           ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-dna"></i>
+                           <span>Biology</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Chemistry" <%=typeof formData
+                           !=='undefined' && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Chemistry')
+                           !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-flask"></i>
+                           <span>Chemistry</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Physics" <%=typeof formData !=='undefined'
+                           && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Physics') !==-1
+                           ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-atom"></i>
+                           <span>Physics</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Government" <%=typeof formData
+                           !=='undefined' && formData.favoriteSubjects &&
+                           formData.favoriteSubjects.indexOf('Government') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-gavel"></i>
+                           <span>Government</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Literature in English" <%=typeof formData !=='undefined' && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Literature in English') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-book-open"></i>
+                           <span>Literature in English</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="History" <%=typeof formData !=='undefined'
+                           && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('History') !==-1
+                           ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-landmark"></i>
+                           <span>History</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Geography" <%=typeof formData
+                           !=='undefined' && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Geography')
+                           !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-map"></i>
+                           <span>Geography</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Economics" <%=typeof formData
+                           !=='undefined' && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Economics')
+                           !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-chart-line"></i>
+                           <span>Economics</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Commerce" <%=typeof formData
+                           !=='undefined' && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Commerce')
+                           !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-store"></i>
+                           <span>Commerce</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Computer Science" <%=typeof formData !=='undefined' && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Computer Science') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-code"></i>
+                           <span>Computer Science</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Further Mathematics" <%=typeof formData !=='undefined' && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Further Mathematics') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-square-root-variable"></i>
+                           <span>Further Mathematics</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Yoruba" <%=typeof formData !=='undefined'
+                           && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Yoruba') !==-1 ? 'checked'
+                           : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-language"></i>
+                           <span>Yoruba</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Hausa" <%=typeof formData !=='undefined'
+                           && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Hausa') !==-1 ? 'checked'
+                           : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-language"></i>
+                           <span>Hausa</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Igbo" <%=typeof formData !=='undefined' &&
+                           formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Igbo') !==-1 ? 'checked' : ''
+                           %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-language"></i>
+                           <span>Igbo</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="French" <%=typeof formData !=='undefined'
+                           && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('French') !==-1 ? 'checked'
+                           : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-language"></i>
+                           <span>French</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Christian Religious Knowledge" <%=typeof
+                           formData !=='undefined' && formData.favoriteSubjects &&
+                           formData.favoriteSubjects.indexOf('Christian Religious Knowledge') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-church"></i>
+                           <span>CRK</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="favoriteSubjects" value="Islamic Studies" <%=typeof formData !=='undefined' && formData.favoriteSubjects && formData.favoriteSubjects.indexOf('Islamic Studies') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-mosque"></i>
+                           <span>Islamic Studies</span>
+                        </span>
+                     </label>
+                  </div>
+
+                  <div class="form-navigation">
+                     <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                     </button>
+                     <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next Step <i class="fas fa-arrow-right"></i>
+                     </button>
+                  </div>
+               </div>
+
+               <!-- ======================================== -->
+               <!-- STEP 4: Interests -->
+               <!-- ======================================== -->
+               <div class="form-step" data-step="4">
+                  <h2><i class="fas fa-heart"></i> Career Interests</h2>
+                  <p class="step-description">Select the fields that interest you the most.</p>
+
+                  <div class="checkbox-grid">
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Technology" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Technology') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-microchip"></i>
+                           <span>Technology</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Business" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Business') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-chart-bar"></i>
+                           <span>Business</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Medicine" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Medicine') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-heartbeat"></i>
+                           <span>Medicine</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Law" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Law') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-gavel"></i>
+                           <span>Law</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Agriculture" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Agriculture') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-seedling"></i>
+                           <span>Agriculture</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Engineering" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Engineering') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-cogs"></i>
+                           <span>Engineering</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Education" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Education') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-chalkboard-teacher"></i>
+                           <span>Education</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Arts" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Arts') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-paint-brush"></i>
+                           <span>Arts</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Sports" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Sports') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-futbol"></i>
+                           <span>Sports</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Media" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Media') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-newspaper"></i>
+                           <span>Media</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Petroleum" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Petroleum') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-oil-can"></i>
+                           <span>Petroleum & Gas</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="interests" value="Banking" <%=typeof formData !=='undefined' &&
+                           formData.interests && formData.interests.indexOf('Banking') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-university"></i>
+                           <span>Banking & Finance</span>
+                        </span>
+                     </label>
+                  </div>
+
+                  <div class="form-navigation">
+                     <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                     </button>
+                     <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next Step <i class="fas fa-arrow-right"></i>
+                     </button>
+                  </div>
+               </div>
+
+               <!-- ======================================== -->
+               <!-- STEP 5: Skills -->
+               <!-- ======================================== -->
+               <div class="form-step" data-step="5">
+                  <h2><i class="fas fa-tools"></i> Your Skills</h2>
+                  <p class="step-description">Select the skills you currently possess.</p>
+
+                  <div class="checkbox-grid">
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="skills" value="Problem Solving" <%=typeof formData !=='undefined'
+                           && formData.skills && formData.skills.indexOf('Problem Solving') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-puzzle-piece"></i>
+                           <span>Problem Solving</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="skills" value="Leadership" <%=typeof formData !=='undefined' &&
+                           formData.skills && formData.skills.indexOf('Leadership') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-users-cog"></i>
+                           <span>Leadership</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="skills" value="Communication" <%=typeof formData !=='undefined' &&
+                           formData.skills && formData.skills.indexOf('Communication') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-comments"></i>
+                           <span>Communication</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="skills" value="Creativity" <%=typeof formData !=='undefined' &&
+                           formData.skills && formData.skills.indexOf('Creativity') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-lightbulb"></i>
+                           <span>Creativity</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="skills" value="Coding" <%=typeof formData !=='undefined' &&
+                           formData.skills && formData.skills.indexOf('Coding') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-code"></i>
+                           <span>Coding</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="skills" value="Public Speaking" <%=typeof formData !=='undefined'
+                           && formData.skills && formData.skills.indexOf('Public Speaking') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-microphone-alt"></i>
+                           <span>Public Speaking</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="skills" value="Design" <%=typeof formData !=='undefined' &&
+                           formData.skills && formData.skills.indexOf('Design') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-pencil-ruler"></i>
+                           <span>Design</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="skills" value="Teamwork" <%=typeof formData !=='undefined' &&
+                           formData.skills && formData.skills.indexOf('Teamwork') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-handshake"></i>
+                           <span>Teamwork</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="skills" value="Critical Thinking" <%=typeof formData !=='undefined'
+                           && formData.skills && formData.skills.indexOf('Critical Thinking') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-brain"></i>
+                           <span>Critical Thinking</span>
+                        </span>
+                     </label>
+
+                     <label class="checkbox-card">
+                        <input type="checkbox" name="skills" value="Time Management" <%=typeof formData !=='undefined'
+                           && formData.skills && formData.skills.indexOf('Time Management') !==-1 ? 'checked' : '' %>>
+                        <span class="checkbox-content">
+                           <i class="fas fa-clock"></i>
+                           <span>Time Management</span>
+                        </span>
+                     </label>
+                  </div>
+
+                  <div class="form-navigation">
+                     <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                     </button>
+                     <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next Step <i class="fas fa-arrow-right"></i>
+                     </button>
+                  </div>
+               </div>
+
+               <!-- ======================================== -->
+               <!-- STEP 6: Personality Questions -->
+               <!-- ======================================== -->
+               <div class="form-step" data-step="6">
+                  <h2><i class="fas fa-brain"></i> Personality Assessment</h2>
+                  <p class="step-description">Answer these 15 questions to help us understand your personality better.
+                  </p>
+
+                  <div class="personality-questions">
+                     <p class="question-instruction">Rate each statement on a scale of 1 (Strongly Disagree) to 5
+                        (Strongly Agree)</p>
+
+                     <% var personalityQuestions=[ {id: 1,
+                        text: "I enjoy working in teams and collaborating with others." }, {id: 2,
+                        text: "I prefer to work independently rather than in groups." }, {id: 3,
+                        text: "I am naturally curious and love learning new things." }, {id: 4,
+                        text: "I am a creative person who enjoys thinking outside the box." }, {id: 5,
+                        text: "I am organized and pay attention to details." }, {id: 6,
+                        text: "I am comfortable taking risks and trying new approaches." }, {id: 7,
+                        text: "I am good at understanding and empathizing with others." }, {id: 8,
+                        text: "I am competitive and strive to be the best." }, {id: 9,
+                        text: "I enjoy solving complex problems and puzzles." }, {id: 10,
+                        text: "I am adaptable and handle change well." }, {id: 11,
+                        text: "I am a natural leader who inspires others." }, {id: 12,
+                        text: "I am patient and persistent in achieving my goals." }, {id: 13,
+                        text: "I enjoy public speaking and presenting ideas." }, {id: 14,
+                        text: "I am analytical and think logically about problems." }, {id: 15,
+                        text: "I am passionate about making a positive impact on society." } ]; for (var i=0; i <
+                        personalityQuestions.length; i++) { var q=personalityQuestions[i]; %>
+
+                        <div class="personality-question">
+                           <label>
+                              <%= q.text %>
+                           </label>
+                           <div class="rating-scale">
+                              <label class="rating-option">
+                                 <input type="radio" name="personality_<%= q.id %>" value="1" <%=(typeof formData
+                                    !=='undefined' && formData.personalityAnswers &&
+                                    formData.personalityAnswers['personality_' + q.id]==='1' ) ? 'checked' : '' %>>
+                                 <span>1</span>
+                              </label>
+                              <label class="rating-option">
+                                 <input type="radio" name="personality_<%= q.id %>" value="2" <%=(typeof formData
+                                    !=='undefined' && formData.personalityAnswers &&
+                                    formData.personalityAnswers['personality_' + q.id]==='2' ) ? 'checked' : '' %>>
+                                 <span>2</span>
+                              </label>
+                              <label class="rating-option">
+                                 <input type="radio" name="personality_<%= q.id %>" value="3" <%=(typeof formData
+                                    !=='undefined' && formData.personalityAnswers &&
+                                    formData.personalityAnswers['personality_' + q.id]==='3' ) ? 'checked' : '' %>>
+                                 <span>3</span>
+                              </label>
+                              <label class="rating-option">
+                                 <input type="radio" name="personality_<%= q.id %>" value="4" <%=(typeof formData
+                                    !=='undefined' && formData.personalityAnswers &&
+                                    formData.personalityAnswers['personality_' + q.id]==='4' ) ? 'checked' : '' %>>
+                                 <span>4</span>
+                              </label>
+                              <label class="rating-option">
+                                 <input type="radio" name="personality_<%= q.id %>" value="5" <%=(typeof formData
+                                    !=='undefined' && formData.personalityAnswers &&
+                                    formData.personalityAnswers['personality_' + q.id]==='5' ) ? 'checked' : '' %>>
+                                 <span>5</span>
+                              </label>
+                           </div>
+                        </div>
+
+                        <% } %>
+                  </div>
+
+                  <div class="form-navigation">
+                     <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                     </button>
+                     <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Next Step <i class="fas fa-arrow-right"></i>
+                     </button>
+                  </div>
+               </div>
+
+               <!-- ======================================== -->
+               <!-- STEP 7: Career Goals -->
+               <!-- ======================================== -->
+               <div class="form-step" data-step="7">
+                  <h2><i class="fas fa-rocket"></i> Career Goals</h2>
+                  <p class="step-description">Share your future aspirations and career ambitions in Nigeria.</p>
+
+                  <div class="form-grid">
+                     <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="careerGoals">What career are you most interested in?</label>
+                        <input type="text" id="careerGoals" name="careerGoals"
+                           placeholder="e.g., Software Engineer, Medical Doctor, Business Analyst"
+                           value="<%= typeof formData !== 'undefined' && formData.careerGoals ? formData.careerGoals : '' %>">
+                     </div>
+
+                     <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="dreamJob">Describe your dream job</label>
+                        <textarea id="dreamJob" name="dreamJob" rows="3"
+                           placeholder="What does your ideal career in Nigeria look like?"><%= typeof formData !== 'undefined' && formData.dreamJob ? formData.dreamJob : '' %></textarea>
+                     </div>
+
+                     <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="futureAmbitions">What are your long-term ambitions in Nigeria?</label>
+                        <textarea id="futureAmbitions" name="futureAmbitions" rows="3"
+                           placeholder="Where do you see yourself in 10 years in Nigeria?"><%= typeof formData !== 'undefined' && formData.futureAmbitions ? formData.futureAmbitions : '' %></textarea>
+                     </div>
+
+                     <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="preferredUniversity">Preferred Nigerian University (optional)</label>
+                        <input type="text" id="preferredUniversity" name="preferredUniversity"
+                           placeholder="e.g., University of Lagos, UI, UNIBEN"
+                           value="<%= typeof formData !== 'undefined' && formData.preferredUniversity ? formData.preferredUniversity : '' %>">
+                     </div>
+
+                     <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="additionalInfo">Any additional information you'd like to share?</label>
+                        <textarea id="additionalInfo" name="additionalInfo" rows="2"
+                           placeholder="Any other details about your interests, experiences, or goals"><%= typeof formData !== 'undefined' && formData.additionalInfo ? formData.additionalInfo : '' %></textarea>
+                     </div>
+                  </div>
+
+                  <div class="form-navigation">
+                     <button type="button" class="btn btn-secondary" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                     </button>
+                     <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-rocket"></i> Submit Assessment
+                     </button>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </section>
+
+      <!-- Clear Assessment Data -->
+      <section class="assessment-actions">
+         <div class="container">
+            <div class="actions-box">
+               <p><i class="fas fa-info-circle"></i> Your progress is automatically saved.</p>
+               <a href="/clear-assessment" class="btn btn-secondary btn-sm"
+                  onclick="return confirm('Are you sure you want to clear all your assessment data?')">
+                  <i class="fas fa-trash"></i> Clear Data
+               </a>
+            </div>
+         </div>
+      </section>
+   </main>
+
+   <!-- Footer -->
+   <footer class="footer" role="contentinfo">
+      <div class="footer-container">
+         <div class="footer-grid">
+            <div class="footer-brand">
+               <div class="logo">
+                  <i class="fas fa-robot"></i>
+                  <span>AI Career<span class="highlight">Predictor</span></span>
+               </div>
+               <p>Empowering Nigerian students to make informed career decisions through AI-powered insights.</p>
+               <div class="social-links">
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+               </div>
+            </div>
+            <div class="footer-links">
+               <h4>Platform</h4>
+               <ul>
+                  <li><a href="/assessment">Assessment</a></li>
+                  <li><a href="/results">Results</a></li>
+                  <li><a href="/scholarship">Scholarships</a></li>
+                  <li><a href="/skills">Skills</a></li>
+               </ul>
+            </div>
+            <div class="footer-links">
+               <h4>Resources</h4>
+               <ul>
+                  <li><a href="#">Career Guide</a></li>
+                  <li><a href="#">Success Stories</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="#">Blog</a></li>
+               </ul>
+            </div>
+            <div class="footer-links">
+               <h4>Company</h4>
+               <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms of Service</a></li>
+               </ul>
+            </div>
+         </div>
+         <div class="footer-bottom">
+            <p>&copy; 2026 AI Career Predictor Nigeria. All rights reserved.</p>
+            <p class="footer-tech">Powered by <i class="fas fa-microchip"></i> AI Technology</p>
+         </div>
+      </div>
+   </footer>
+
+   <script src="/script.js"></script>
+</body>
+
+</html>
