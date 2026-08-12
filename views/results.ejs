@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Results Dashboard - AI Career Predictor</title>
+   <link rel="stylesheet" href="/style.css">
+   <link rel="stylesheet" href="/payments.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <style>
+      /* Dashboard Grid */
+      .dashboard-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: var(--spacing-6);
+         margin: var(--spacing-6) 0;
+      }
+
+      .dashboard-card {
+         background: white;
+         padding: var(--spacing-6);
+         border-radius: var(--radius-2xl);
+         box-shadow: var(--shadow-md);
+         border: 1px solid var(--neutral-200);
+         transition: all var(--transition-base) ease;
+      }
+
+      .dashboard-card:hover {
+         box-shadow: var(--shadow-lg);
+      }
+
+      .dashboard-card .card-header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-bottom: var(--spacing-4);
+         padding-bottom: var(--spacing-3);
+         border-bottom: 2px solid var(--neutral-100);
+      }
+
+      .dashboard-card .card-header h3 {
+         font-size: var(--font-size-lg);
+         font-weight: 600;
+         color: var(--neutral-800);
+      }
+
+      .dashboard-card .card-header i {
+         color: var(--primary-500);
+         font-size: var(--font-size-xl);
+      }
+
+      .student-info-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: var(--spacing-4);
+      }
+
+      .info-item {
+         display: flex;
+         flex-direction: column;
+      }
+
+      .info-item .label {
+         font-size: var(--font-size-xs);
+         color: var(--neutral-500);
+         font-weight: 500;
+         text-transform: uppercase;
+         letter-spacing: 0.5px;
+      }
+
+      .info-item .value {
+         font-size: var(--font-size-base);
+         font-weight: 600;
+         color: var(--neutral-900);
+         margin-top: var(--spacing-1);
+      }
+
+      .personality-traits {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: var(--spacing-3);
+      }
+
+      .trait-item {
+         display: flex;
+         flex-direction: column;
+         gap: var(--spacing-1);
+      }
+
+      .trait-item .trait-label {
+         display: flex;
+         justify-content: space-between;
+         font-size: var(--font-size-sm);
+         color: var(--neutral-700);
+      }
+
+      .trait-item .trait-bar {
+         height: 6px;
+         background: var(--neutral-200);
+         border-radius: var(--radius-full);
+         overflow: hidden;
+      }
+
+      .trait-item .trait-fill {
+         height: 100%;
+         border-radius: var(--radius-full);
+         transition: width 1s ease;
+      }
+
+      .analytics-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+         gap: var(--spacing-4);
+      }
+
+      .analytics-card {
+         background: var(--neutral-50);
+         padding: var(--spacing-4);
+         border-radius: var(--radius-lg);
+         text-align: center;
+      }
+
+      .analytics-card .number {
+         font-size: var(--font-size-2xl);
+         font-weight: 800;
+         color: var(--primary-600);
+      }
+
+      .analytics-card .label {
+         font-size: var(--font-size-sm);
+         color: var(--neutral-600);
+         margin-top: var(--spacing-1);
+      }
+
+      .strength-weakness-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: var(--spacing-4);
+      }
+
+      .strength-item,
+      .weakness-item {
+         display: flex;
+         align-items: center;
+         gap: var(--spacing-2);
+         padding: var(--spacing-2);
+         border-radius: var(--radius-md);
+         font-size: var(--font-size-sm);
+      }
+
+      .strength-item {
+         background: var(--success-50);
+         color: var(--success-700);
+      }
+
+      .strength-item i {
+         color: var(--success-500);
+      }
+
+      .weakness-item {
+         background: var(--error-50);
+         color: var(--error-700);
+      }
+
+      .weakness-item i {
+         color: var(--error-500);
+      }
+
+      .recommendation-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: var(--spacing-6);
+      }
+
+      .recommendation-card {
+         background: white;
+         border-radius: var(--radius-xl);
+         border: 1px solid var(--neutral-200);
+         overflow: hidden;
+         transition: all var(--transition-base) ease;
+      }
+
+      .recommendation-card:hover {
+         transform: translateY(-4px);
+         box-shadow: var(--shadow-xl);
+      }
+
+      .recommendation-card .card-top {
+         padding: var(--spacing-4) var(--spacing-6);
+         border-bottom: 1px solid var(--neutral-200);
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+      }
+
+      .recommendation-card .card-top .rank {
+         font-size: var(--font-size-sm);
+         font-weight: 700;
+         color: var(--primary-600);
+      }
+
+      .recommendation-card .card-top .match-badge {
+         padding: var(--spacing-1) var(--spacing-3);
+         border-radius: var(--radius-full);
+         font-size: var(--font-size-xs);
+         font-weight: 600;
+      }
+
+      .match-badge.excellent {
+         background: var(--success-50);
+         color: var(--success-600);
+      }
+
+      .match-badge.good {
+         background: var(--primary-50);
+         color: var(--primary-600);
+      }
+
+      .match-badge.moderate {
+         background: var(--warning-50);
+         color: var(--warning-600);
+      }
+
+      .match-badge.needs-improvement {
+         background: var(--error-50);
+         color: var(--error-600);
+      }
+
+      .recommendation-card .card-body {
+         padding: var(--spacing-4) var(--spacing-6);
+      }
+
+      .recommendation-card .card-body h4 {
+         font-size: var(--font-size-lg);
+         margin-bottom: var(--spacing-2);
+      }
+
+      .recommendation-card .card-body .subtitle {
+         font-size: var(--font-size-sm);
+         color: var(--neutral-500);
+         margin-bottom: var(--spacing-3);
+      }
+
+      .recommendation-card .card-footer {
+         padding: var(--spacing-3) var(--spacing-6);
+         background: var(--neutral-50);
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+      }
+
+      .chart-container {
+         height: 200px;
+         display: flex;
+         align-items: flex-end;
+         gap: var(--spacing-3);
+         padding: var(--spacing-4) 0;
+      }
+
+      .chart-bar {
+         flex: 1;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: var(--spacing-2);
+      }
+
+      .chart-bar .bar {
+         width: 100%;
+         border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+         min-height: 20px;
+         transition: height 1s ease;
+      }
+
+      .chart-bar .label {
+         font-size: var(--font-size-xs);
+         color: var(--neutral-500);
+         text-align: center;
+      }
+
+      .chart-bar .value {
+         font-size: var(--font-size-xs);
+         font-weight: 600;
+         color: var(--neutral-700);
+      }
+
+      .full-width {
+         grid-column: 1 / -1;
+      }
+
+      /* AI Counselor Section */
+      .ai-counselor-section {
+         margin: var(--spacing-12) 0;
+      }
+
+      .counselor-header {
+         display: flex;
+         align-items: center;
+         gap: var(--spacing-3);
+         margin-bottom: var(--spacing-6);
+      }
+
+      .counselor-badge {
+         display: inline-flex;
+         align-items: center;
+         gap: var(--spacing-2);
+         background: linear-gradient(135deg, var(--primary-600), var(--accent-500));
+         color: white;
+         padding: var(--spacing-2) var(--spacing-4);
+         border-radius: var(--radius-full);
+         font-weight: 600;
+         font-size: var(--font-size-sm);
+      }
+
+      .counselor-badge i {
+         font-size: var(--font-size-lg);
+      }
+
+      .counselor-grid {
+         display: grid;
+         grid-template-columns: 1fr 1fr;
+         gap: var(--spacing-6);
+      }
+
+      .counselor-card {
+         background: white;
+         border-radius: var(--radius-2xl);
+         border: 1px solid var(--neutral-200);
+         padding: var(--spacing-6);
+         box-shadow: var(--shadow-md);
+         transition: all var(--transition-base) ease;
+      }
+
+      .counselor-card:hover {
+         box-shadow: var(--shadow-lg);
+         transform: translateY(-2px);
+      }
+
+      .counselor-card .card-icon {
+         width: 48px;
+         height: 48px;
+         border-radius: var(--radius-lg);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: var(--font-size-xl);
+         color: white;
+         margin-bottom: var(--spacing-3);
+      }
+
+      .counselor-card .card-icon.personality {
+         background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      }
+
+      .counselor-card .card-icon.growth {
+         background: linear-gradient(135deg, #10b981, #059669);
+      }
+
+      .counselor-card .card-icon.industry {
+         background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      }
+
+      .counselor-card .card-icon.salary {
+         background: linear-gradient(135deg, #f59e0b, #d97706);
+      }
+
+      .counselor-card .card-icon.readiness {
+         background: linear-gradient(135deg, #ec4899, #db2777);
+      }
+
+      .counselor-card h4 {
+         font-size: var(--font-size-lg);
+         margin-bottom: var(--spacing-2);
+         color: var(--neutral-800);
+      }
+
+      .counselor-card p {
+         font-size: var(--font-size-sm);
+         color: var(--neutral-600);
+         line-height: 1.7;
+         margin-bottom: var(--spacing-3);
+      }
+
+      .counselor-card .insight-tag {
+         display: inline-block;
+         padding: var(--spacing-1) var(--spacing-3);
+         border-radius: var(--radius-full);
+         font-size: var(--font-size-xs);
+         font-weight: 600;
+         margin: var(--spacing-1);
+      }
+
+      .insight-tag.positive {
+         background: var(--success-50);
+         color: var(--success-700);
+      }
+
+      .insight-tag.warning {
+         background: var(--warning-50);
+         color: var(--warning-700);
+      }
+
+      .insight-tag.info {
+         background: var(--primary-50);
+         color: var(--primary-700);
+      }
+
+      .readiness-meter {
+         margin-top: var(--spacing-3);
+         padding: var(--spacing-3);
+         background: var(--neutral-50);
+         border-radius: var(--radius-lg);
+      }
+
+      .readiness-meter .meter-bar {
+         height: 8px;
+         background: var(--neutral-200);
+         border-radius: var(--radius-full);
+         overflow: hidden;
+         margin: var(--spacing-2) 0;
+      }
+
+      .readiness-meter .meter-fill {
+         height: 100%;
+         border-radius: var(--radius-full);
+         transition: width 1s ease;
+      }
+
+      .readiness-meter .meter-fill.excellent {
+         background: linear-gradient(90deg, #10b981, #059669);
+      }
+
+      .readiness-meter .meter-fill.good {
+         background: linear-gradient(90deg, #6366f1, #4f46e5);
+      }
+
+      .readiness-meter .meter-fill.moderate {
+         background: linear-gradient(90deg, #f59e0b, #d97706);
+      }
+
+      .readiness-meter .meter-fill.needs-improvement {
+         background: linear-gradient(90deg, #ef4444, #dc2626);
+      }
+
+      .readiness-level {
+         font-weight: 700;
+         font-size: var(--font-size-lg);
+      }
+
+      .readiness-level.excellent {
+         color: var(--success-600);
+      }
+
+      .readiness-level.good {
+         color: var(--primary-600);
+      }
+
+      .readiness-level.moderate {
+         color: var(--warning-600);
+      }
+
+      .readiness-level.needs-improvement {
+         color: var(--error-600);
+      }
+
+      .explanation-item {
+         padding: var(--spacing-3);
+         border-left: 4px solid var(--primary-500);
+         background: var(--neutral-50);
+         border-radius: var(--radius-md);
+         margin-bottom: var(--spacing-3);
+      }
+
+      .explanation-item:last-child {
+         margin-bottom: 0;
+      }
+
+      .explanation-item .explanation-title {
+         font-weight: 600;
+         color: var(--neutral-800);
+         margin-bottom: var(--spacing-1);
+      }
+
+      .explanation-item .explanation-text {
+         font-size: var(--font-size-sm);
+         color: var(--neutral-600);
+         line-height: 1.6;
+      }
+
+      /* Score Breakdown in Results */
+      .score-breakdown {
+         margin: var(--spacing-4) 0;
+         padding: var(--spacing-4);
+         background: var(--neutral-50);
+         border-radius: var(--radius-lg);
+      }
+
+      .score-item {
+         display: flex;
+         align-items: center;
+         gap: var(--spacing-3);
+         margin-bottom: var(--spacing-2);
+      }
+
+      .score-item:last-child {
+         margin-bottom: 0;
+      }
+
+      .score-label {
+         font-size: var(--font-size-sm);
+         font-weight: 500;
+         color: var(--neutral-700);
+         min-width: 80px;
+      }
+
+      .score-bar {
+         flex: 1;
+         height: 6px;
+         background: var(--neutral-200);
+         border-radius: var(--radius-full);
+         overflow: hidden;
+      }
+
+      .score-fill {
+         height: 100%;
+         border-radius: var(--radius-full);
+         transition: width 1s ease;
+      }
+
+      .score-value {
+         font-size: var(--font-size-sm);
+         font-weight: 600;
+         color: var(--neutral-700);
+         min-width: 45px;
+         text-align: right;
+      }
+
+      /* Tags */
+      .tag {
+         display: inline-block;
+         padding: var(--spacing-1) var(--spacing-3);
+         border-radius: var(--radius-full);
+         font-size: var(--font-size-xs);
+         font-weight: 500;
+      }
+
+      .tag-interest {
+         background: var(--primary-50);
+         color: var(--primary-700);
+      }
+
+      .tag-skill {
+         background: var(--success-50);
+         color: var(--success-700);
+      }
+
+      .tag-subject {
+         background: var(--secondary-50);
+         color: var(--secondary-700);
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+         .dashboard-grid {
+            grid-template-columns: 1fr;
+         }
+
+         .recommendation-grid {
+            grid-template-columns: 1fr;
+         }
+
+         .counselor-grid {
+            grid-template-columns: 1fr;
+         }
+      }
+
+      @media (max-width: 768px) {
+         .student-info-grid {
+            grid-template-columns: 1fr;
+         }
+
+         .personality-traits {
+            grid-template-columns: 1fr;
+         }
+
+         .strength-weakness-grid {
+            grid-template-columns: 1fr;
+         }
+
+         .analytics-grid {
+            grid-template-columns: repeat(2, 1fr);
+         }
+
+         .dashboard-card {
+            padding: var(--spacing-4);
+         }
+
+         .counselor-card {
+            padding: var(--spacing-4);
+         }
+
+         .recommendation-card .card-footer {
+            flex-direction: column;
+            gap: var(--spacing-2);
+            text-align: center;
+         }
+
+         .recommendation-card .card-top {
+            flex-direction: column;
+            gap: var(--spacing-2);
+            align-items: flex-start;
+         }
+      }
+
+      @media (max-width: 480px) {
+         .analytics-grid {
+            grid-template-columns: 1fr;
+         }
+
+         .dashboard-card .card-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--spacing-2);
+         }
+
+         .score-item {
+            flex-wrap: wrap;
+         }
+
+         .counselor-header {
+            flex-direction: column;
+            align-items: flex-start;
+         }
+      }
+   </style>
+</head>
+
+<body>
+   <nav class="navbar">
+      <div class="nav-container">
+         <div class="logo">
+            <a href="/">
+               <i class="fas fa-robot"></i>
+               <span>AI Career<span class="highlight">Predictor</span></span>
+            </a>
+         </div>
+         <button class="nav-toggle">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+         </button>
+         <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/assessment">Assessment</a></li>
+            <li><a href="/results" class="active">Results</a></li>
+            <li><a href="/scholarship">Scholarships<% if (!isPremium) { %> <i class="fas fa-lock" style="font-size:10px;color:var(--warning-500);"></i><% } %></a></li>
+            <li><a href="/skills">Skills<% if (!isPremium) { %> <i class="fas fa-lock" style="font-size:10px;color:var(--warning-500);"></i><% } %></a></li>
+            <li><a href="/pricing" class="<%= isPremium ? '' : 'nav-premium-link' %>"><%= isPremium ? 'Billing' : 'Upgrade' %></a></li>
+            <%- include('partials/auth-nav') %>
+         </ul>
+      </div>
+   </nav>
+
+   <main>
+      <!-- Hero Section -->
+      <section class="results-hero">
+         <div class="container">
+            <div class="results-header">
+               <div class="results-badge">
+                  <i class="fas fa-check-circle"></i> Analysis Complete
+                  <% if (isPremium) { %>
+                     <span class="premium-badge" style="margin-left:8px;"><i class="fas fa-crown"></i> Pro</span>
+                  <% } %>
+               </div>
+               <h1>Your Career Dashboard</h1>
+               <p>Comprehensive analysis of your academic profile, personality, and career matches</p>
+            </div>
+         </div>
+      </section>
+
+      <% if (!isPremium) { %>
+         <section class="container" style="margin-top: calc(-1 * var(--spacing-6)); position: relative; z-index: 2;">
+            <div class="premium-gate">
+               <div class="premium-gate-icon"><i class="fas fa-unlock-alt"></i></div>
+               <h2>Unlock Your Full Career Report</h2>
+               <p>You're seeing a preview. Upgrade to Pro for all career matches, AI counseling, scholarships, and skills roadmap.</p>
+               <a href="/pricing" class="btn btn-primary btn-large">
+                  <i class="fas fa-bolt"></i> Upgrade to Pro — from ₦4,999/mo
+               </a>
+            </div>
+         </section>
+      <% } %>
+
+      <!-- Dashboard Grid -->
+      <section class="results-dashboard">
+         <div class="container">
+            <div class="dashboard-grid">
+
+               <!-- Student Summary Card -->
+               <div class="dashboard-card">
+                  <div class="card-header">
+                     <h3><i class="fas fa-user-graduate"></i> Student Summary</h3>
+                     <i class="fas fa-user"></i>
+                  </div>
+                  <div class="student-info-grid">
+                     <div class="info-item">
+                        <span class="label">Name</span>
+                        <span class="value">
+                           <%= assessmentData.studentName || 'Not provided' %>
+                        </span>
+                     </div>
+                     <div class="info-item">
+                        <span class="label">Age</span>
+                        <span class="value">
+                           <%= assessmentData.studentAge || 'Not provided' %>
+                        </span>
+                     </div>
+                     <div class="info-item">
+                        <span class="label">Gender</span>
+                        <span class="value">
+                           <%= assessmentData.gender ? assessmentData.gender.charAt(0).toUpperCase() +
+                              assessmentData.gender.slice(1) : 'Not provided' %>
+                        </span>
+                     </div>
+                     <div class="info-item">
+                        <span class="label">School Level</span>
+                        <span class="value">
+                           <%= assessmentData.schoolLevel ? assessmentData.schoolLevel.replace('-', ' ' ).toUpperCase()
+                              : 'Not provided' %>
+                        </span>
+                     </div>
+                     <div class="info-item full-width">
+                        <span class="label">Career Goals</span>
+                        <span class="value">
+                           <%= assessmentData.careerGoals || 'Not specified' %>
+                        </span>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Academic Performance Card -->
+               <div class="dashboard-card">
+                  <div class="card-header">
+                     <h3><i class="fas fa-chart-line"></i> Academic Performance</h3>
+                     <i class="fas fa-graduation-cap"></i>
+                  </div>
+                  <div class="analytics-grid">
+                     <div class="analytics-card">
+                        <div class="number">
+                           <%= averageScore %>%
+                        </div>
+                        <div class="label">Average Score</div>
+                     </div>
+                     <div class="analytics-card">
+                        <div class="number">
+                           <%= gpa %>
+                        </div>
+                        <div class="label">GPA (4.0 Scale)</div>
+                     </div>
+                  </div>
+                  <div style="margin-top: var(--spacing-4);">
+                     <div class="score-item">
+                        <span class="score-label">Mathematics</span>
+                        <div class="score-bar">
+                           <div class="score-fill"
+                              style="width: <%= assessmentData.mathGrade || 0 %>%; background: #6366f1;"></div>
+                        </div>
+                        <span class="score-value">
+                           <%= assessmentData.mathGrade || 0 %>%
+                        </span>
+                     </div>
+                     <div class="score-item">
+                        <span class="score-label">English</span>
+                        <div class="score-bar">
+                           <div class="score-fill"
+                              style="width: <%= assessmentData.englishGrade || 0 %>%; background: #8b5cf6;"></div>
+                        </div>
+                        <span class="score-value">
+                           <%= assessmentData.englishGrade || 0 %>%
+                        </span>
+                     </div>
+                     <div class="score-item">
+                        <span class="score-label">Science</span>
+                        <div class="score-bar">
+                           <div class="score-fill"
+                              style="width: <%= assessmentData.scienceGrade || 0 %>%; background: #ec4899;"></div>
+                        </div>
+                        <span class="score-value">
+                           <%= assessmentData.scienceGrade || 0 %>%
+                        </span>
+                     </div>
+                     <div class="score-item">
+                        <span class="score-label">Social Science</span>
+                        <div class="score-bar">
+                           <div class="score-fill"
+                              style="width: <%= assessmentData.socialScienceGrade || 0 %>%; background: #14b8a6;"></div>
+                        </div>
+                        <span class="score-value">
+                           <%= assessmentData.socialScienceGrade || 0 %>%
+                        </span>
+                     </div>
+                     <div class="score-item">
+                        <span class="score-label">Technology</span>
+                        <div class="score-bar">
+                           <div class="score-fill"
+                              style="width: <%= assessmentData.technologyGrade || 0 %>%; background: #f59e0b;"></div>
+                        </div>
+                        <span class="score-value">
+                           <%= assessmentData.technologyGrade || 0 %>%
+                        </span>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Personality Summary Card -->
+               <div class="dashboard-card">
+                  <div class="card-header">
+                     <h3><i class="fas fa-brain"></i> Personality Summary</h3>
+                     <i class="fas fa-smile"></i>
+                  </div>
+                  <div class="personality-traits">
+                     <% personalityTraits.forEach(function(trait) { %>
+                        <div class="trait-item">
+                           <div class="trait-label">
+                              <span><%= trait.label %></span>
+                              <span><%= trait.score %>%</span>
+                           </div>
+                           <div class="trait-bar">
+                              <div class="trait-fill" style="width: <%= trait.score %>%; background: <%= trait.color %>;"></div>
+                           </div>
+                        </div>
+                     <% }) %>
+                  </div>
+               </div>
+
+               <!-- Interests & Skills Card -->
+               <div class="dashboard-card">
+                  <div class="card-header">
+                     <h3><i class="fas fa-heart"></i> Interests & Skills</h3>
+                     <i class="fas fa-tags"></i>
+                  </div>
+                  <div style="margin-bottom: var(--spacing-4);">
+                     <h4
+                        style="font-size: var(--font-size-sm); color: var(--neutral-600); margin-bottom: var(--spacing-2);">
+                        Interests</h4>
+                     <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-2);">
+                        <% if (assessmentData.interests && assessmentData.interests.length> 0) { %>
+                           <% assessmentData.interests.forEach(interest=> { %>
+                              <span class="tag tag-interest">
+                                 <%= interest %>
+                              </span>
+                              <% }) %>
+                                 <% } else { %>
+                                    <span style="color: var(--neutral-500); font-size: var(--font-size-sm);">No
+                                       interests selected</span>
+                                    <% } %>
+                     </div>
+                  </div>
+                  <div>
+                     <h4
+                        style="font-size: var(--font-size-sm); color: var(--neutral-600); margin-bottom: var(--spacing-2);">
+                        Skills</h4>
+                     <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-2);">
+                        <% if (assessmentData.skills && assessmentData.skills.length> 0) { %>
+                           <% assessmentData.skills.forEach(skill=> { %>
+                              <span class="tag tag-skill">
+                                 <%= skill %>
+                              </span>
+                              <% }) %>
+                                 <% } else { %>
+                                    <span style="color: var(--neutral-500); font-size: var(--font-size-sm);">No skills
+                                       selected</span>
+                                    <% } %>
+                     </div>
+                  </div>
+                  <div style="margin-top: var(--spacing-4);">
+                     <h4
+                        style="font-size: var(--font-size-sm); color: var(--neutral-600); margin-bottom: var(--spacing-2);">
+                        Favorite Subjects</h4>
+                     <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-2);">
+                        <% if (assessmentData.favoriteSubjects && assessmentData.favoriteSubjects.length> 0) { %>
+                           <% assessmentData.favoriteSubjects.forEach(subject=> { %>
+                              <span class="tag tag-subject">
+                                 <%= subject %>
+                              </span>
+                              <% }) %>
+                                 <% } else { %>
+                                    <span style="color: var(--neutral-500); font-size: var(--font-size-sm);">No favorite
+                                       subjects selected</span>
+                                    <% } %>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Strength & Weakness Analysis -->
+               <div class="dashboard-card full-width">
+                  <div class="card-header">
+                     <h3><i class="fas fa-chart-pie"></i> Strength & Weakness Analysis</h3>
+                     <i class="fas fa-balance-scale"></i>
+                  </div>
+                  <div class="strength-weakness-grid">
+                     <div>
+                        <h4
+                           style="font-size: var(--font-size-sm); color: var(--success-600); margin-bottom: var(--spacing-2);">
+                           <i class="fas fa-thumbs-up"></i> Strengths
+                        </h4>
+                        <% if (academicStrengths.length > 0) { %>
+                           <% academicStrengths.forEach(function(subject) { %>
+                           <div class="strength-item">
+                              <i class="fas fa-check-circle"></i>
+                              <span><%= subject.name %> - <%= Math.round(subject.score) %>%</span>
+                           </div>
+                           <% }) %>
+                        <% } else { %>
+                              <div style="color: var(--neutral-500); font-size: var(--font-size-sm);">No major strengths
+                                 identified</div>
+                        <% } %>
+                     </div>
+                     <div>
+                        <h4
+                           style="font-size: var(--font-size-sm); color: var(--error-600); margin-bottom: var(--spacing-2);">
+                           <i class="fas fa-exclamation-triangle"></i> Areas for Improvement
+                        </h4>
+                        <% if (academicWeaknesses.length > 0) { %>
+                           <% academicWeaknesses.forEach(function(subject) { %>
+                              <div class="weakness-item">
+                                 <i class="fas fa-exclamation-circle"></i>
+                                 <span><%= subject.name %> - <%= Math.round(subject.score) %>%</span>
+                              </div>
+                           <% }) %>
+                        <% } else { %>
+                                 <div style="color: var(--neutral-500); font-size: var(--font-size-sm);">No weaknesses
+                                    identified</div>
+                        <% } %>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Career Match Chart -->
+               <div class="dashboard-card full-width">
+                  <div class="card-header">
+                     <h3><i class="fas fa-chart-bar"></i> Career Match Distribution</h3>
+                     <i class="fas fa-briefcase"></i>
+                  </div>
+                  <div class="chart-container">
+                     <% if (results.careers && results.careers.length> 0) { %>
+                        <% results.careers.slice(0, 6).forEach(career=> { %>
+                           <div class="chart-bar">
+                              <div class="value">
+                                 <%= career.scores.score %>%
+                              </div>
+                              <div class="bar"
+                                 style="height: <%= career.scores.score %>%px; background: linear-gradient(to top, #6366f1, #8b5cf6);">
+                              </div>
+                              <div class="label">
+                                 <%= career.name.split(' ').slice(0, 2).join(' ') %></div>
+                           </div>
+                           <% }) %>
+                              <% } %>
+                  </div>
+               </div>
+
+            </div>
+
+            <!-- ======================================== -->
+            <!-- AI CAREER COUNSELOR SECTION - PHASE 7 -->
+            <!-- ======================================== -->
+            <% if (careerProfile && careerProfile.intelligentExplanations) { %>
+               <section class="ai-counselor-section">
+                  <div class="counselor-header">
+                     <div class="counselor-badge">
+                        <i class="fas fa-robot"></i> AI Career Counselor
+                     </div>
+                     <span style="font-size: var(--font-size-sm); color: var(--neutral-500);">
+                        <i class="fas fa-brain"></i> Powered by Advanced Analytics
+                     </span>
+                  </div>
+
+                  <div class="counselor-grid">
+                     <!-- Personality Profile -->
+                     <div class="counselor-card">
+                        <div class="card-icon personality">
+                           <i class="fas fa-user-astronaut"></i>
+                        </div>
+                        <h4>Your Personality Profile</h4>
+                        <% if (careerProfile.personalityProfile) { const pp=careerProfile.personalityProfile; %>
+                           <p><strong><%= pp.summary %></strong></p>
+                           <% if (pp.primary) { %>
+                              <div style="margin: var(--spacing-2) 0;">
+                                 <span class="insight-tag positive"><i class="fas fa-star"></i> Primary: <%= pp.primary.trait %></span>
+                                    <% if (pp.secondary) { %>
+                                       <span class="insight-tag info"><i class="fas fa-star"></i> Secondary: <%= pp.secondary.trait %></span>
+                                          <% } %>
+                              </div>
+                              <div style="font-size: var(--font-size-sm); color: var(--neutral-600);">
+                                 <p><strong>Key Strengths:</strong> <%= pp.primary.strengths ? pp.primary.strengths.join(', ') : 'Not available' %>
+                                    </p>
+                              </div>
+                              <% } %>
+                                 <% if (pp.recommendations && pp.recommendations.advice &&
+                                    pp.recommendations.advice.length> 0) { %>
+                                    <div style="margin-top: var(--spacing-2);">
+                                       <p style="font-size: var(--font-size-sm); color: var(--neutral-600);">
+                                          <i class="fas fa-lightbulb" style="color: var(--warning-500);"></i>
+                                          <%= pp.recommendations.advice[0] %>
+                                       </p>
+                                    </div>
+                                    <% } %>
+                                       <% } %>
+                           </div>
+
+                           <!-- Career Readiness -->
+                           <div class="counselor-card">
+                              <div class="card-icon readiness">
+                                 <i class="fas fa-rocket"></i>
+                              </div>
+                              <h4>Career Readiness</h4>
+                              <% if (careerProfile.careerReadiness) { const readiness=careerProfile.careerReadiness; %>
+                                 <div class="readiness-meter">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                       <span style="font-size: var(--font-size-sm); color: var(--neutral-600);">Overall
+                                          Readiness</span>
+                                       <span
+                                          class="readiness-level <%= readiness.level.toLowerCase().replace(' ', '-') %>">
+                                          <%= readiness.level %>
+                                       </span>
+                                    </div>
+                                    <div class="meter-bar">
+                                       <div class="meter-fill <%= readiness.level.toLowerCase().replace(' ', '-') %>"
+                                          style="width: <%= readiness.score %>%"></div>
+                                    </div>
+                                    <div
+                                       style="display: flex; justify-content: space-between; font-size: var(--font-size-xs); color: var(--neutral-400);">
+                                       <span>0%</span>
+                                       <span>
+                                          <%= readiness.score %>%
+                                       </span>
+                                       <span>100%</span>
+                                    </div>
+                                 </div>
+
+                                 <div style="margin-top: var(--spacing-3);">
+                                    <% if (readiness.strengths && readiness.strengths.length> 0) { %>
+                                       <p style="font-size: var(--font-size-sm); color: var(--success-600);">
+                                          <i class="fas fa-check-circle"></i> <strong>Strengths:</strong>
+                                          <%= readiness.strengths.join(', ') %>
+                                 </p>
+                                 <% } %>
+                                    <% if (readiness.advice && readiness.advice.length> 0) { %>
+                                       <p style="font-size: var(--font-size-sm); color: var(--primary-600);">
+                                          <i class="fas fa-lightbulb"></i> <strong>Next Steps:</strong> <%= readiness.advice.slice(0, 2).join('. ') %>
+                                       </p>
+                                       <% } %>
+                           </div>
+                           <% } %>
+                     </div>
+
+                     <!-- Growth Potential -->
+                     <div class="counselor-card">
+                        <div class="card-icon growth">
+                           <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Growth Potential</h4>
+                        <% if (careerProfile.futureDemand) { const demand=careerProfile.futureDemand; %>
+                           <div style="display: flex; gap: var(--spacing-4); margin-bottom: var(--spacing-3);">
+                              <div>
+                                 <span style="font-size: var(--font-size-sm); color: var(--neutral-500);">Demand Score</span>
+                                 <div style="font-size: var(--font-size-xl); font-weight: 700; color: var(--primary-600);">
+                                    <%= demand.demandScore %>% 
+                                 </div>
+                              </div>
+                              <div>
+                                 <span style="font-size: var(--font-size-sm); color: var(--neutral-500);">Trend</span>
+                                 <div style="font-size: var(--font-size-base); font-weight: 600; color: <%= demand.trend === 'High Growth' ? 'var(--success-600)' : 'var(--warning-600)' %>;">
+                                             <i
+                                                class="fas <%= demand.trend === 'High Growth' ? 'fa-arrow-up' : 'fa-arrow-right' %>"></i>
+                                             <%= demand.trend %>
+                                 </div>
+                           </div>
+                  </div>
+                  <% if (demand.analysis && demand.analysis.length> 0) { %>
+                     <div style="font-size: var(--font-size-sm); color: var(--neutral-600);">
+                        <p><strong>Top Career Demand:</strong></p>
+                        <% demand.analysis.slice(0, 2).forEach(item=> { %>
+                           <div
+                              style="display: flex; justify-content: space-between; padding: var(--spacing-1) 0; border-bottom: 1px solid var(--neutral-100);">
+                              <span>
+                                 <%= item.career %>
+                              </span>
+                              <span style="font-weight: 600; color: var(--primary-600);">
+                                 <%= item.demandScore %>% Demand
+                              </span>
+                           </div>
+                           <% }) %>
+                     </div>
+                     <% } %>
+                        <% } %>
+               </div>
+
+               <!-- Salary Potential -->
+               <div class="counselor-card">
+                  <div class="card-icon salary">
+                     <i class="fas fa-dollar-sign"></i>
+                  </div>
+                  <h4>Salary Potential</h4>
+                  <% if (careerProfile.salaryPotential) { const salary=careerProfile.salaryPotential; %>
+                     <div style="display: flex; gap: var(--spacing-4); margin-bottom: var(--spacing-3);">
+                        <div>
+                           <span style="font-size: var(--font-size-sm); color: var(--neutral-500);">Average Entry</span>
+                           <div style="font-size: var(--font-size-xl); font-weight: 700; color: var(--success-600);">
+                              $<%= salary.averageEntrySalary ? salary.averageEntrySalary.toLocaleString() : 'N/A' %>
+                           </div>
+                        </div>
+                        <div>
+                           <span style="font-size: var(--font-size-sm); color: var(--neutral-500);">Earning
+                              Potential</span>
+                           <div
+                              style="font-size: var(--font-size-base); font-weight: 600; color: <%= salary.potential === 'High' ? 'var(--success-600)' : 'var(--warning-600)' %>;">
+                              <%= salary.potential %>
+                           </div>
+                        </div>
+                     </div>
+                     <% if (salary.advice) { %>
+                        <p style="font-size: var(--font-size-sm); color: var(--neutral-600);">
+                           <i class="fas fa-lightbulb" style="color: var(--warning-500);"></i>
+                           <%= salary.advice %>
+                        </p>
+                        <% } %>
+                           <% if (salary.careers && salary.careers.length> 0) { %>
+                              <div style="margin-top: var(--spacing-2); font-size: var(--font-size-sm);">
+                                 <p style="font-weight: 600; color: var(--neutral-700);">Top Earning Careers:</p>
+                                 <% salary.careers.slice(0, 3).forEach(c=> { %>
+                                    <div
+                                       style="display: flex; justify-content: space-between; padding: var(--spacing-1) 0; border-bottom: 1px solid var(--neutral-100);">
+                                       <span>
+                                          <%= c.career %>
+                                       </span>
+                                       <span style="color: var(--neutral-600);">$<%= c.entrySalary ? c.entrySalary.toLocaleString() : 'N/A' %></span>
+                                    </div>
+                                    <% }) %>
+                              </div>
+                              <% } %>
+                                 <% } %>
+               </div>
+
+               <!-- Industry Trends -->
+               <div class="counselor-card">
+                  <div class="card-icon industry">
+                     <i class="fas fa-industry"></i>
+                  </div>
+                  <h4>Industry Trends</h4>
+                  <% if (careerProfile.industryGrowth) { const industry=careerProfile.industryGrowth; %>
+                     <div style="display: flex; gap: var(--spacing-4); margin-bottom: var(--spacing-3);">
+                        <div>
+                           <span style="font-size: var(--font-size-sm); color: var(--neutral-500);">Growth Score</span>
+                           <div style="font-size: var(--font-size-xl); font-weight: 700; color: var(--primary-600);">
+                              <%= industry.growthScore %>%
+                           </div>
+                        </div>
+                        <div>
+                           <span style="font-size: var(--font-size-sm); color: var(--neutral-500);">High Growth
+                              Industries</span>
+                           <div style="font-size: var(--font-size-xs); font-weight: 600; color: var(--success-600);">
+                              <%= industry.highGrowthIndustries ? industry.highGrowthIndustries.slice(0, 2).join(', ') : 'N/A' %>
+                           </div>
+                        </div>
+                     </div>
+                     <% if (industry.analysis && industry.analysis.length> 0) { %>
+                        <div style="font-size: var(--font-size-sm); color: var(--neutral-600);">
+                           <p><strong>Top Growth Careers:</strong></p>
+                           <% industry.analysis.slice(0, 3).forEach(item=> { %>
+                              <div
+                                 style="display: flex; justify-content: space-between; padding: var(--spacing-1) 0; border-bottom: 1px solid var(--neutral-100);">
+                                 <span>
+                                    <%= item.career %>
+                                 </span>
+                                 <span style="font-weight: 600; color: var(--success-600);">
+                                    <%= item.growth %>% Growth
+                                 </span>
+                              </div>
+                              <% }) %>
+                        </div>
+                        <% } %>
+                           <% } %>
+               </div>
+
+               <!-- Intelligent Explanations -->
+               <div class="counselor-card" style="grid-column: 1 / -1;">
+                  <div class="card-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">
+                     <i class="fas fa-comment-dots"></i>
+                  </div>
+                  <h4>AI Career Counselor Insights</h4>
+                  <p
+                     style="font-size: var(--font-size-sm); color: var(--neutral-500); margin-bottom: var(--spacing-4);">
+                     Personalized explanations for why these recommendations are a great fit for you
+                  </p>
+
+                  <% careerProfile.intelligentExplanations.slice(0, 5).forEach(explanation=> { %>
+                     <div class="explanation-item">
+                        <div class="explanation-title">
+                           <i class="fas <%= explanation.type === 'career_match' ? 'fa-briefcase' : explanation.type === 'personality_match' ? 'fa-user' : explanation.type === 'growth_potential' ? 'fa-chart-line' : explanation.type === 'industry_trend' ? 'fa-industry' : explanation.type === 'salary_potential' ? 'fa-dollar-sign' : 'fa-lightbulb' %>"
+                              style="color: var(--primary-500); margin-right: var(--spacing-2);"></i>
+                           <%= explanation.title %>
+                        </div>
+                        <div class="explanation-text">
+                           <%= explanation.content %>
+                        </div>
+                     </div>
+                     <% }) %>
+               </div>
+            </div>
+      </section>
+      <% } %>
+
+         <!-- ======================================== -->
+         <!-- TOP COURSES RECOMMENDATIONS -->
+         <!-- ======================================== -->
+         <h2 style="margin-top: var(--spacing-12);"><i class="fas fa-university"></i> Top University Courses</h2>
+         <p class="section-description">These courses are the best match for your profile based on our AI analysis.</p>
+
+         <div class="recommendation-grid">
+            <% results.courses.forEach((course, index)=> { %>
+               <div class="recommendation-card">
+                  <div class="card-top">
+                     <span class="rank">#<%= index + 1 %></span>
+                     <span
+                        class="match-badge <%= course.scores.score >= 70 ? 'excellent' : course.scores.score >= 50 ? 'good' : 'moderate' %>">
+                        <%= course.scores.score %>% Match
+                     </span>
+                  </div>
+                  <div class="card-body">
+                     <h4>
+                        <%= course.name %>
+                     </h4>
+                     <p class="subtitle"><i class="fas fa-building"></i>
+                        <%= course.university %>
+                     </p>
+                     <div style="display: flex; gap: var(--spacing-4); margin-bottom: var(--spacing-3);">
+                        <div
+                           style="display: flex; align-items: center; gap: var(--spacing-1); font-size: var(--font-size-sm);">
+                           <i class="fas fa-clock" style="color: var(--neutral-400);"></i>
+                           <span>
+                              <%= course.duration || '4 years' %>
+                           </span>
+                        </div>
+                        <div
+                           style="display: flex; align-items: center; gap: var(--spacing-1); font-size: var(--font-size-sm);">
+                           <i class="fas fa-dollar-sign" style="color: var(--neutral-400);"></i>
+                           <span>$<%= course.tuition ? (course.tuition/1000).toFixed(0) + 'k' : 'Varies' %></span>
+                        </div>
+                        <div
+                           style="display: flex; align-items: center; gap: var(--spacing-1); font-size: var(--font-size-sm);">
+                           <i class="fas fa-check-circle" style="color: var(--success-500);"></i>
+                           <span>GPA <%= course.requiredGPA || '3.0' %></span>
+                        </div>
+                     </div>
+                     <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-1);">
+                        <% (course.careerPaths || []).slice(0, 3).forEach(path=> { %>
+                           <span
+                              style="font-size: var(--font-size-xs); background: var(--neutral-100); padding: 2px 8px; border-radius: var(--radius-full); color: var(--neutral-600);">
+                              <%= path %>
+                           </span>
+                           <% }) %>
+                     </div>
+                  </div>
+                  <div class="card-footer">
+                     <span style="font-size: var(--font-size-sm); color: var(--neutral-600);">
+                        <i class="fas fa-check-circle" style="color: var(--success-500);"></i> Confidence: <%=
+                           course.confidence %>%
+                     </span>
+                     <a href="#" class="btn btn-primary btn-sm">Learn More</a>
+                  </div>
+               </div>
+               <% }) %>
+         </div>
+
+         <!-- ======================================== -->
+         <!-- TOP CAREERS RECOMMENDATIONS -->
+         <!-- ======================================== -->
+         <h2 style="margin-top: var(--spacing-12);"><i class="fas fa-briefcase"></i> Top Careers</h2>
+         <p class="section-description">These careers align best with your skills, interests, and personality.</p>
+
+         <div class="recommendation-grid">
+            <% results.careers.forEach((career, index)=> { %>
+               <div class="recommendation-card">
+                  <div class="card-top">
+                     <span class="rank">#<%= index + 1 %></span>
+                     <span
+                        class="match-badge <%= career.scores.score >= 70 ? 'excellent' : career.scores.score >= 50 ? 'good' : 'moderate' %>">
+                        <%= career.scores.score %>% Match
+                     </span>
+                  </div>
+                  <div class="card-body">
+                     <h4>
+                        <%= career.name %>
+                     </h4>
+                     <p class="subtitle">
+                        <%= career.description || 'Exciting career opportunity' %>
+                     </p>
+                     <div style="display: flex; gap: var(--spacing-4); margin-bottom: var(--spacing-3);">
+                        <% if (career.averageSalary) { %>
+                           <div
+                              style="display: flex; align-items: center; gap: var(--spacing-1); font-size: var(--font-size-sm);">
+                              <i class="fas fa-dollar-sign" style="color: var(--neutral-400);"></i>
+                              <span>$<%= (career.averageSalary/1000).toFixed(0) %>k</span>
+                           </div>
+                           <% } %>
+                              <% if (career.growthRate) { %>
+                                 <div
+                                    style="display: flex; align-items: center; gap: var(--spacing-1); font-size: var(--font-size-sm);">
+                                    <i class="fas fa-chart-line" style="color: var(--neutral-400);"></i>
+                                    <span>
+                                       <%= career.growthRate %> growth
+                                    </span>
+                                 </div>
+                                 <% } %>
+                     </div>
+                     <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-1);">
+                        <% (career.requiredSkills || []).slice(0, 4).forEach(skill=> { %>
+                           <span
+                              style="font-size: var(--font-size-xs); background: var(--primary-50); padding: 2px 8px; border-radius: var(--radius-full); color: var(--primary-600);">
+                              <%= skill %>
+                           </span>
+                           <% }) %>
+                     </div>
+                  </div>
+                  <div class="card-footer">
+                     <span style="font-size: var(--font-size-sm); color: var(--neutral-600);">
+                        <i class="fas fa-check-circle" style="color: var(--success-500);"></i> Confidence: <%=
+                           career.confidence %>%
+                     </span>
+                     <a href="#" class="btn btn-primary btn-sm">Explore Career</a>
+                  </div>
+               </div>
+               <% }) %>
+         </div>
+
+         <% if (!isPremium && fullResults) { %>
+            <div class="premium-locked-section" style="margin-top: var(--spacing-8);">
+               <div class="locked-content">
+                  <% (fullResults.careers || []).slice(1, 4).forEach(function(career) { %>
+                     <div class="recommendation-card" style="margin-bottom: var(--spacing-4);">
+                        <h4><%= career.name %></h4>
+                        <p><%= career.description || '' %></p>
+                     </div>
+                  <% }) %>
+               </div>
+               <div class="premium-overlay">
+                  <div class="premium-overlay-card">
+                     <i class="fas fa-lock"></i>
+                     <h3><%= (fullResults.careers || []).length - 1 %>+ More Career Matches</h3>
+                     <p>Plus AI career counseling, salary analysis, industry trends, and skill gap reports.</p>
+                     <a href="/pricing" class="btn btn-primary">Unlock Full Report</a>
+                  </div>
+               </div>
+            </div>
+         <% } %>
+
+         <!-- ======================================== -->
+         <!-- NEXT STEPS CTA -->
+         <!-- ======================================== -->
+         <section class="results-cta" style="margin-top: var(--spacing-12);">
+            <div class="cta-box">
+               <h3><%= isPremium ? 'Ready to take the next step?' : 'Want scholarships & skills roadmap?' %></h3>
+               <p><%= isPremium ? 'Explore scholarship opportunities and discover skills you should develop for your chosen path' : 'Upgrade to Pro to access scholarship matching and personalized skill development plans' %></p>
+               <div class="cta-buttons">
+                  <% if (isPremium) { %>
+                     <a href="/scholarship" class="btn btn-primary"><i class="fas fa-dollar-sign"></i> View Scholarships</a>
+                     <a href="/skills" class="btn btn-secondary"><i class="fas fa-lightbulb"></i> View Skills</a>
+                  <% } else { %>
+                     <a href="/pricing" class="btn btn-primary"><i class="fas fa-crown"></i> Upgrade to Pro</a>
+                  <% } %>
+                  <a href="/assessment" class="btn btn-secondary"><i class="fas fa-edit"></i> Retake Assessment</a>
+               </div>
+            </div>
+         </section>
+
+         </div>
+         </section>
+   </main>
+
+   <footer class="footer">
+      <div class="footer-container">
+         <div class="footer-grid">
+            <div class="footer-brand">
+               <div class="logo">
+                  <i class="fas fa-robot"></i>
+                  <span>AI Career<span class="highlight">Predictor</span></span>
+               </div>
+               <p>Empowering students to make informed career decisions through AI-powered insights.</p>
+               <div class="social-links">
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#"><i class="fab fa-youtube"></i></a>
+               </div>
+            </div>
+            <div class="footer-links">
+               <h4>Platform</h4>
+               <ul>
+                  <li><a href="/assessment">Assessment</a></li>
+                  <li><a href="/results">Results</a></li>
+                  <li><a href="/scholarship">Scholarships</a></li>
+                  <li><a href="/skills">Skills</a></li>
+               </ul>
+            </div>
+            <div class="footer-links">
+               <h4>Resources</h4>
+               <ul>
+                  <li><a href="#">Career Guide</a></li>
+                  <li><a href="#">Success Stories</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="#">Blog</a></li>
+               </ul>
+            </div>
+            <div class="footer-links">
+               <h4>Company</h4>
+               <ul>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Terms of Service</a></li>
+               </ul>
+            </div>
+         </div>
+         <div class="footer-bottom">
+            <p>&copy; 2026 AI Career Predictor. All rights reserved.</p>
+            <p class="footer-tech">Powered by <i class="fas fa-microchip"></i> AI Technology</p>
+         </div>
+      </div>
+   </footer>
+
+   <script>
+      // Animate progress bars on load
+      document.addEventListener('DOMContentLoaded', function () {
+         // Animate trait bars
+         document.querySelectorAll('.trait-fill').forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(() => {
+               bar.style.width = width;
+            }, 300);
+         });
+
+         // Animate chart bars
+         document.querySelectorAll('.chart-bar .bar').forEach(bar => {
+            const height = bar.style.height;
+            bar.style.height = '0px';
+            setTimeout(() => {
+               bar.style.height = height;
+            }, 500);
+         });
+
+         // Animate score bars
+         document.querySelectorAll('.score-fill').forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(() => {
+               bar.style.width = width;
+            }, 200);
+         });
+
+         // Animate meter fill
+         document.querySelectorAll('.meter-fill').forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(() => {
+               bar.style.width = width;
+            }, 400);
+         });
+      });
+   </script>
+   <script src="/script.js"></script>
+</body>
+
+</html>

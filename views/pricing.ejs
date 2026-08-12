@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Pricing - AI Career Predictor</title>
+   <link rel="stylesheet" href="/style.css">
+   <link rel="stylesheet" href="/payments.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+   <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <div class="nav-container">
+         <div class="logo">
+            <a href="/">
+               <i class="fas fa-robot" aria-hidden="true"></i>
+               <span>AI Career<span class="highlight">Predictor</span></span>
+            </a>
+         </div>
+         <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+         </button>
+         <ul class="nav-links" role="menubar">
+            <li role="none"><a href="/" role="menuitem">Home</a></li>
+            <li role="none"><a href="/assessment" role="menuitem">Assessment</a></li>
+            <li role="none"><a href="/results" role="menuitem">Results</a></li>
+            <li role="none"><a href="/scholarship" role="menuitem">Scholarships</a></li>
+            <li role="none"><a href="/skills" role="menuitem">Skills</a></li>
+            <li role="none"><a href="/pricing" role="menuitem" class="active">Pricing</a></li>
+            <%- include('partials/auth-nav') %>
+         </ul>
+      </div>
+   </nav>
+
+   <section class="pricing-hero">
+      <div class="container">
+         <% if (upgrade) { %>
+            <div class="alert alert-info">
+               <i class="fas fa-lock"></i>
+               Upgrade to Pro to unlock full career insights, scholarships, and skills roadmap.
+            </div>
+         <% } %>
+
+         <% if (error) { %>
+            <div class="alert alert-error">
+               <i class="fas fa-exclamation-circle"></i>
+               <%= error %>
+            </div>
+         <% } %>
+
+         <% if (isPremium) { %>
+            <div class="alert alert-success">
+               <i class="fas fa-crown"></i>
+               You're on <strong><%= premiumPlan === 'lifetime' ? 'Lifetime' : 'Pro' %></strong>.
+               <a href="/billing" class="alert-link">Manage subscription</a>
+            </div>
+         <% } %>
+
+         <div class="section-header">
+            <span class="section-badge">Pricing · Nigeria</span>
+            <h1>Choose Your Plan</h1>
+            <p>Pay in Naira (₦) — cards, bank transfer, USSD &amp; more via Paystack</p>
+         </div>
+
+         <% if (!paystackConfigured) { %>
+            <div class="setup-notice">
+               <i class="fas fa-wrench"></i>
+               <div>
+                  <strong>Paystack setup required</strong>
+                  <p>Add your Paystack API keys to <code>.env</code>. See <code>.env.example</code> for instructions.</p>
+               </div>
+            </div>
+         <% } %>
+      </div>
+   </section>
+
+   <section class="pricing-section">
+      <div class="container">
+         <div class="pricing-grid">
+            <div class="pricing-card">
+               <div class="pricing-card-header">
+                  <h3><%= freePlan.name %></h3>
+                  <div class="pricing-amount">
+                     <span class="currency">₦</span>
+                     <span class="price">0</span>
+                  </div>
+                  <p class="pricing-desc"><%= freePlan.description %></p>
+               </div>
+               <ul class="pricing-features">
+                  <% freePlan.features.forEach(function(feature) { %>
+                     <li><i class="fas fa-check"></i> <%= feature %></li>
+                  <% }); %>
+               </ul>
+               <a href="/assessment" class="btn btn-secondary btn-block">Get Started Free</a>
+            </div>
+
+            <% plans.forEach(function(plan) { %>
+               <div class="pricing-card <%= plan.popular ? 'popular' : '' %>">
+                  <% if (plan.popular) { %>
+                     <div class="popular-badge">Most Popular</div>
+                  <% } %>
+                  <div class="pricing-card-header">
+                     <h3><%= plan.name %></h3>
+                     <div class="pricing-amount">
+                        <span class="currency">₦</span>
+                        <span class="price"><%= plan.price.toLocaleString('en-NG') %></span>
+                        <% if (plan.interval === 'month') { %>
+                           <span class="interval">/mo</span>
+                        <% } else if (plan.interval === 'year') { %>
+                           <span class="interval">/yr</span>
+                        <% } else { %>
+                           <span class="interval"> once</span>
+                        <% } %>
+                     </div>
+                     <% if (plan.savings) { %>
+                        <span class="savings-badge"><%= plan.savings %></span>
+                     <% } %>
+                     <p class="pricing-desc"><%= plan.description %></p>
+                  </div>
+                  <ul class="pricing-features">
+                     <% plan.features.forEach(function(feature) { %>
+                        <li><i class="fas fa-check"></i> <%= feature %></li>
+                     <% }); %>
+                  </ul>
+                  <% if (isPremium && premiumPlan === plan.id) { %>
+                     <a href="/billing" class="btn btn-secondary btn-block">
+                        <i class="fas fa-cog"></i> Manage Plan
+                     </a>
+                  <% } else if (isPremium) { %>
+                     <button class="btn btn-secondary btn-block" disabled>Current plan active</button>
+                  <% } else { %>
+                     <form action="/checkout" method="POST" class="checkout-form">
+                        <input type="hidden" name="planId" value="<%= plan.id %>">
+                        <% if (typeof user === 'undefined' || !user) { %>
+                           <div class="form-group" style="margin-bottom: var(--spacing-3);">
+                              <input type="email" name="email" required placeholder="your@email.com"
+                                 value="<%= defaultEmail %>" class="checkout-email"
+                                 aria-label="Email for payment receipt">
+                           </div>
+                        <% } %>
+                        <button type="submit" class="btn btn-primary btn-block" <%= !paystackConfigured ? 'disabled' : '' %>>
+                           <i class="fas fa-bolt"></i>
+                           <% if (plan.interval === 'once') { %>
+                              Pay <%= formatPrice(plan.price) %> — Lifetime
+                           <% } else { %>
+                              Pay <%= formatPrice(plan.price) %>
+                           <% } %>
+                        </button>
+                     </form>
+                  <% } %>
+               </div>
+            <% }); %>
+         </div>
+
+         <div class="pricing-trust">
+            <div class="trust-item">
+               <i class="fas fa-shield-alt"></i>
+               <span>Secured by Paystack</span>
+            </div>
+            <div class="trust-item">
+               <i class="fas fa-university"></i>
+               <span>Bank transfer &amp; USSD</span>
+            </div>
+            <div class="trust-item">
+               <i class="fas fa-credit-card"></i>
+               <span>Visa, Verve, Mastercard</span>
+            </div>
+            <div class="trust-item">
+               <i class="fas fa-naira-sign"></i>
+               <span>All prices in NGN</span>
+            </div>
+         </div>
+
+         <div class="pricing-faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+               <div class="faq-item">
+                  <h4>What payment methods work in Nigeria?</h4>
+                  <p>Pay with debit/credit cards (Visa, Verve, Mastercard), bank transfer, USSD, or QR — all powered by Paystack.</p>
+               </div>
+               <div class="faq-item">
+                  <h4>Can I cancel my subscription?</h4>
+                  <p>Yes. Manage or cancel from your billing page. You'll keep access until the end of your billing period.</p>
+               </div>
+               <div class="faq-item">
+                  <h4>What's included in the free plan?</h4>
+                  <p>Complete the assessment and see your top career and course match with a basic personality overview.</p>
+               </div>
+               <div class="faq-item">
+                  <h4>Is the Lifetime plan really forever?</h4>
+                  <p>Yes — one Naira payment gives you permanent access to all Pro features with no recurring charges.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <footer class="footer" role="contentinfo">
+      <div class="footer-container">
+         <div class="footer-bottom">
+            <p>&copy; 2026 AI Career Predictor. All rights reserved.</p>
+            <p class="footer-tech">Payments secured by <strong>Paystack</strong> · Nigeria 🇳🇬</p>
+         </div>
+      </div>
+   </footer>
+
+   <script src="/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Payment Successful - AI Career Predictor</title>
+   <link rel="stylesheet" href="/style.css">
+   <link rel="stylesheet" href="/payments.css">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+   <div class="payment-result-page">
+      <div class="payment-result-card success">
+         <div class="result-icon">
+            <i class="fas fa-check-circle"></i>
+         </div>
+         <h1>Payment Successful!</h1>
+         <p class="result-message">
+            Welcome to <strong><%= plan ? plan.name : 'Pro' %></strong>.
+            Your payment was verified. You now have full access to all career guidance features.
+         </p>
+         <% if (typeof reference !== 'undefined' && reference) { %>
+            <p style="font-size: var(--font-size-sm); color: var(--neutral-500); margin-bottom: var(--spacing-4);">
+               Reference: <code><%= reference %></code>
+            </p>
+         <% } %>
+
+         <div class="unlocked-features">
+            <h3>What's unlocked:</h3>
+            <ul>
+               <li><i class="fas fa-check"></i> Full career & course recommendations</li>
+               <li><i class="fas fa-check"></i> AI career profile & counseling</li>
+               <li><i class="fas fa-check"></i> Scholarship finder</li>
+               <li><i class="fas fa-check"></i> Personalized skills roadmap</li>
+            </ul>
+         </div>
+
+         <div class="result-actions">
+            <a href="<%= returnTo %>" class="btn btn-primary btn-large">
+               <i class="fas fa-chart-pie"></i> View Full Results
+            </a>
+            <a href="/scholarship" class="btn btn-secondary btn-large">
+               <i class="fas fa-graduation-cap"></i> Explore Scholarships
+            </a>
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>

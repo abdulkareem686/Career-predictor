@@ -1,0 +1,27 @@
+{
+  "customers": {
+    "CUS_896znuqt84wtpwf": {
+      "customerId": "CUS_896znuqt84wtpwf",
+      "createdAt": "2026-08-11T23:43:44.740Z",
+      "reference": "cp_1786491811217_c5c9a08f",
+      "planId": "pro_monthly",
+      "subscriptionCode": null,
+      "isPremium": true,
+      "expiresAt": "2026-09-11T23:43:44.739Z",
+      "activatedAt": "2026-08-11T23:43:44.739Z",
+      "email": "abdulkareemopeyemi123@gmail.com",
+      "amountPaid": 499900,
+      "currency": "NGN",
+      "updatedAt": "2026-08-11T23:43:44.740Z"
+    }
+  },
+  "events": [
+    {
+      "type": "charge.success",
+      "reference": "cp_1786491811217_c5c9a08f",
+      "customerId": "CUS_896znuqt84wtpwf",
+      "planId": "pro_monthly",
+      "recordedAt": "2026-08-11T23:43:44.742Z"
+    }
+  ]
+}

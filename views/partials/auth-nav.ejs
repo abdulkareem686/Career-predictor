@@ -1,0 +1,16 @@
+<% if (typeof user !== 'undefined' && user) { %>
+   <li role="none" class="nav-user">
+      <% if (user.picture) { %>
+         <img src="<%= user.picture %>" alt="" class="nav-user-avatar">
+      <% } %>
+      <a href="/profile" class="nav-user-name" role="menuitem"><%= user.name.split(' ')[0] %></a>
+      <a href="/logout" role="menuitem" title="Sign out" style="color: var(--neutral-400); font-size: 14px;">
+         <i class="fas fa-sign-out-alt"></i>
+      </a>
+   </li>
+<% } else { %>
+   <li role="none" class="nav-auth">
+      <a href="/login" class="btn-nav-signin" role="menuitem">Sign In</a>
+      <a href="/signup" class="btn-nav-signup" role="menuitem">Sign Up</a>
+   </li>
+<% } %>

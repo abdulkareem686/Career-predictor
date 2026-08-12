@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Profile - AI Career Predictor</title>
+   <link rel="stylesheet" href="/style.css">
+   <link rel="stylesheet" href="/auth.css">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="auth-page">
+   <div class="auth-container" style="max-width: 480px;">
+      <div class="auth-card profile-card">
+         <% if (user.picture) { %>
+            <img src="<%= user.picture %>" alt="" class="profile-avatar">
+         <% } else { %>
+            <div class="profile-avatar placeholder"><i class="fas fa-user"></i></div>
+         <% } %>
+
+         <h1><%= user.name %></h1>
+         <p class="auth-subtitle"><%= user.email %></p>
+
+         <% if (isPremium) { %>
+            <span class="premium-badge"><i class="fas fa-crown"></i> Pro Member</span>
+         <% } %>
+
+         <div class="profile-actions">
+            <a href="/assessment" class="btn btn-primary btn-block">Take Assessment</a>
+            <a href="/results" class="btn btn-secondary btn-block">View Results</a>
+            <% if (isPremium) { %>
+               <a href="/billing" class="btn btn-secondary btn-block">Manage Billing</a>
+            <% } else { %>
+               <a href="/pricing" class="btn btn-secondary btn-block">Upgrade to Pro</a>
+            <% } %>
+            <a href="/logout" class="btn btn-secondary btn-block" style="margin-top: var(--spacing-2);">
+               <i class="fas fa-sign-out-alt"></i> Sign Out
+            </a>
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>

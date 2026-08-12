@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Sign In - AI Career Predictor</title>
+   <link rel="stylesheet" href="/style.css">
+   <link rel="stylesheet" href="/auth.css">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="auth-page">
+   <div class="auth-container">
+      <a href="/" class="auth-logo">
+         <i class="fas fa-robot"></i>
+         <span>AI Career<span class="highlight">Predictor</span></span>
+      </a>
+
+      <div class="auth-card">
+         <h1>Welcome back</h1>
+         <p class="auth-subtitle">Sign in to access your career assessment and saved results</p>
+
+         <% if (error) { %>
+            <div class="auth-alert error"><i class="fas fa-exclamation-circle"></i> <%= error %></div>
+         <% } %>
+
+         <% if (!googleConfigured) { %>
+            <div class="auth-alert warning">
+               <i class="fas fa-wrench"></i>
+               Google sign-in is not configured. Add <code>GOOGLE_CLIENT_ID</code> and
+               <code>GOOGLE_CLIENT_SECRET</code> to your <code>.env</code> file.
+            </div>
+         <% } else { %>
+            <a href="/auth/google" class="btn-google">
+               <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" width="20" height="20">
+               Continue with Google
+            </a>
+         <% } %>
+
+         <p class="auth-footer-text">
+            Don't have an account? <a href="/signup">Sign up free</a>
+         </p>
+      </div>
+   </div>
+</body>
+
+</html>

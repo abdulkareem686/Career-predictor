@@ -1,0 +1,649 @@
+{
+   "scholarships": [
+      {
+         "id": 1,
+         "name": "MTN Nigeria Foundation Scholarship",
+         "category": "Nigerian Scholarships",
+         "provider": "MTN Nigeria",
+         "type": "Merit-Based",
+         "amount": "₦500,000 per year",
+         "benefits": "Tuition fee coverage, laptop, monthly stipend",
+         "eligibility": {
+            "gpa": 3.5,
+            "fields": [
+               "Science",
+               "Technology",
+               "Engineering",
+               "Mathematics"
+            ],
+            "nationality": "Nigerian",
+            "level": [
+               "undergraduate"
+            ],
+            "requirements": [
+               "Must be in 200 level or above",
+               "Full-time student"
+            ]
+         },
+         "deadline": "2026-08-15",
+         "applicationRequirements": [
+            "Official academic transcript",
+            "Letter of recommendation from faculty",
+            "Personal statement (500 words)",
+            "Copy of student ID",
+            "Recent passport photograph"
+         ],
+         "description": "The MTN Nigeria Foundation Scholarship supports talented Nigerian students in STEM fields, providing comprehensive financial support throughout their academic journey.",
+         "contact": "scholarships@mtnfoundation.org",
+         "website": "https://www.mtnfoundation.org/scholarships",
+         "matchCriteria": {
+            "subjects": [
+               "Mathematics",
+               "Science",
+               "Technology",
+               "Computer Science"
+            ],
+            "interests": [
+               "technology",
+               "engineering",
+               "innovation"
+            ],
+            "careers": [
+               "Software Developer",
+               "Engineer",
+               "Data Scientist"
+            ]
+         }
+      },
+      {
+         "id": 2,
+         "name": "PTDF National Scholarship Scheme",
+         "category": "Nigerian Scholarships",
+         "provider": "Petroleum Technology Development Fund",
+         "type": "Merit-Based",
+         "amount": "Full tuition + ₦300,000 per year",
+         "benefits": "Full tuition coverage, accommodation allowance, research grant",
+         "eligibility": {
+            "gpa": 3.0,
+            "fields": [
+               "Engineering",
+               "Geology",
+               "Science",
+               "Technology"
+            ],
+            "nationality": "Nigerian",
+            "level": [
+               "undergraduate",
+               "postgraduate"
+            ],
+            "requirements": [
+               "Must have admission to approved institutions",
+               "Second class upper minimum"
+            ]
+         },
+         "deadline": "2026-07-30",
+         "applicationRequirements": [
+            "Academic transcripts",
+            "Admission letter from university",
+            "NYSC certificate (for PG applicants)",
+            "Birth certificate",
+            "State of origin certificate"
+         ],
+         "description": "The PTDF National Scholarship Scheme is one of Nigeria's most prestigious scholarships, supporting students in oil and gas related fields at both undergraduate and postgraduate levels.",
+         "contact": "scholarships@ptdf.gov.ng",
+         "website": "https://www.ptdf.gov.ng",
+         "matchCriteria": {
+            "subjects": [
+               "Mathematics",
+               "Science",
+               "Engineering",
+               "Physics",
+               "Chemistry"
+            ],
+            "interests": [
+               "engineering",
+               "technology",
+               "science",
+               "energy"
+            ],
+            "careers": [
+               "Petroleum Engineer",
+               "Geologist",
+               "Chemical Engineer"
+            ]
+         }
+      },
+      {
+         "id": 3,
+         "name": "Nigeria LNG (NLNG) Scholarship",
+         "category": "Nigerian Scholarships",
+         "provider": "Nigeria LNG Limited",
+         "type": "Merit-Based",
+         "amount": "Full tuition + ₦400,000 per year",
+         "benefits": "Tuition fee coverage, book allowance, annual maintenance allowance",
+         "eligibility": {
+            "gpa": 3.5,
+            "fields": [
+               "Engineering",
+               "Sciences",
+               "Medicine",
+               "Law",
+               "Economics"
+            ],
+            "nationality": "Nigerian",
+            "level": [
+               "undergraduate"
+            ],
+            "requirements": [
+               "Must have O'Level results with minimum 5 credits",
+               "SSCE certificate"
+            ]
+         },
+         "deadline": "2026-09-01",
+         "applicationRequirements": [
+            "UTME/JAMB result",
+            "O'Level certificate",
+            "First year academic transcript",
+            "Letter of introduction from institution",
+            "Medical report"
+         ],
+         "description": "The NLNG Scholarship Program is designed to promote academic excellence and develop future leaders in Nigeria through comprehensive educational support.",
+         "contact": "scholarships@nlng.com",
+         "website": "https://www.nlng.com/scholarships",
+         "matchCriteria": {
+            "subjects": [
+               "Mathematics",
+               "English",
+               "Science",
+               "Economics",
+               "Medicine"
+            ],
+            "interests": [
+               "engineering",
+               "medicine",
+               "business",
+               "law"
+            ],
+            "careers": [
+               "Engineer",
+               "Doctor",
+               "Lawyer",
+               "Business Analyst"
+            ]
+         }
+      },
+      {
+         "id": 4,
+         "name": "Mastercard Foundation Scholars Program",
+         "category": "African Scholarships",
+         "provider": "Mastercard Foundation",
+         "type": "Need and Merit-Based",
+         "amount": "Full tuition + living expenses + mentorship",
+         "benefits": "Full tuition, accommodation, books, mentorship, internship opportunities",
+         "eligibility": {
+            "gpa": 3.0,
+            "fields": [
+               "All fields"
+            ],
+            "nationality": "African",
+            "level": [
+               "undergraduate",
+               "postgraduate"
+            ],
+            "requirements": [
+               "Demonstrated leadership potential",
+               "Commitment to giving back to community"
+            ]
+         },
+         "deadline": "2026-10-15",
+         "applicationRequirements": [
+            "Academic transcripts",
+            "Personal statement",
+            "Leadership experience documentation",
+            "Community service records",
+            "Recommendation letters"
+         ],
+         "description": "The Mastercard Foundation Scholars Program develops young African leaders who are committed to creating social and economic change in their communities.",
+         "contact": "scholars@mastercardfoundation.org",
+         "website": "https://www.mastercardfoundation.org/scholars",
+         "matchCriteria": {
+            "subjects": [
+               "All subjects"
+            ],
+            "interests": [
+               "leadership",
+               "community development",
+               "social impact"
+            ],
+            "careers": [
+               "Social Entrepreneur",
+               "Community Leader",
+               "Policy Maker"
+            ]
+         }
+      },
+      {
+         "id": 5,
+         "name": "African Union Commission Scholarship",
+         "category": "African Scholarships",
+         "provider": "African Union Commission",
+         "type": "Merit-Based",
+         "amount": "Full tuition + €10,000 per year",
+         "benefits": "Full tuition, living expenses, research support, travel allowance",
+         "eligibility": {
+            "gpa": 3.2,
+            "fields": [
+               "Science",
+               "Technology",
+               "Engineering",
+               "Agriculture",
+               "Health"
+            ],
+            "nationality": "African",
+            "level": [
+               "postgraduate"
+            ],
+            "requirements": [
+               "Must be under 35 years",
+               "Bachelor's degree with second class upper"
+            ]
+         },
+         "deadline": "2026-08-30",
+         "applicationRequirements": [
+            "Academic transcripts",
+            "Research proposal",
+            "CV/Resume",
+            "Letters of recommendation",
+            "Statement of purpose"
+         ],
+         "description": "The African Union Commission Scholarship aims to develop the next generation of African leaders through advanced education and research in critical fields.",
+         "contact": "scholarships@africa-union.org",
+         "website": "https://www.au.int/scholarships",
+         "matchCriteria": {
+            "subjects": [
+               "Science",
+               "Technology",
+               "Agriculture",
+               "Health",
+               "Engineering"
+            ],
+            "interests": [
+               "development",
+               "research",
+               "agriculture",
+               "healthcare"
+            ],
+            "careers": [
+               "Researcher",
+               "Policy Analyst",
+               "Agricultural Scientist"
+            ]
+         }
+      },
+      {
+         "id": 6,
+         "name": "Commonwealth Scholarship Commission",
+         "category": "International Scholarships",
+         "provider": "UK Government",
+         "type": "Merit-Based",
+         "amount": "Full tuition + stipend + travel",
+         "benefits": "Full tuition coverage, monthly stipend, travel costs, thesis allowance",
+         "eligibility": {
+            "gpa": 3.5,
+            "fields": [
+               "All fields"
+            ],
+            "nationality": "Commonwealth countries",
+            "level": [
+               "postgraduate"
+            ],
+            "requirements": [
+               "Bachelor's degree with first class honors",
+               "Under 40 years"
+            ]
+         },
+         "deadline": "2026-11-01",
+         "applicationRequirements": [
+            "Academic transcripts",
+            "Referee reports",
+            "Detailed study plan",
+            "Proof of citizenship",
+            "Statement of purpose"
+         ],
+         "description": "The Commonwealth Scholarship Commission offers prestigious scholarships to Commonwealth citizens for postgraduate study in the UK.",
+         "contact": "scholarships@csc.uk",
+         "website": "https://www.cscuk.org.uk",
+         "matchCriteria": {
+            "subjects": [
+               "All subjects"
+            ],
+            "interests": [
+               "research",
+               "development",
+               "innovation"
+            ],
+            "careers": [
+               "Researcher",
+               "Academic",
+               "Policy Maker"
+            ]
+         }
+      },
+      {
+         "id": 7,
+         "name": "Chevening Scholarships",
+         "category": "International Scholarships",
+         "provider": "UK Government",
+         "type": "Merit-Based",
+         "amount": "Full tuition + living expenses",
+         "benefits": "Full tuition, monthly stipend, travel costs, networking events",
+         "eligibility": {
+            "gpa": 3.0,
+            "fields": [
+               "All fields"
+            ],
+            "nationality": "International (UK not included)",
+            "level": [
+               "postgraduate"
+            ],
+            "requirements": [
+               "Bachelor's degree with honors",
+               "Minimum 2 years work experience"
+            ]
+         },
+         "deadline": "2026-11-05",
+         "applicationRequirements": [
+            "Academic transcripts",
+            "Two reference letters",
+            "Statement of purpose",
+            "Work experience documentation"
+         ],
+         "description": "Chevening Scholarships are UK Government's global scholarship program, developing future leaders through world-class education and networking.",
+         "contact": "chevening@fcdo.gov.uk",
+         "website": "https://www.chevening.org",
+         "matchCriteria": {
+            "subjects": [
+               "All subjects"
+            ],
+            "interests": [
+               "leadership",
+               "international relations",
+               "development"
+            ],
+            "careers": [
+               "Diplomat",
+               "Policy Maker",
+               "International Consultant"
+            ]
+         }
+      },
+      {
+         "id": 8,
+         "name": "Stanford Africa Fellowship",
+         "category": "International Scholarships",
+         "provider": "Stanford University",
+         "type": "Merit-Based",
+         "amount": "Full tuition + living expenses",
+         "benefits": "Full tuition, living stipend, research support, mentorship",
+         "eligibility": {
+            "gpa": 3.5,
+            "fields": [
+               "All fields"
+            ],
+            "nationality": "African",
+            "level": [
+               "postgraduate"
+            ],
+            "requirements": [
+               "Bachelor's degree",
+               "Demonstrated research potential"
+            ]
+         },
+         "deadline": "2026-09-15",
+         "applicationRequirements": [
+            "Academic transcripts",
+            "Research proposal",
+            "CV",
+            "Recommendation letters",
+            "English proficiency test"
+         ],
+         "description": "The Stanford Africa Fellowship supports exceptional African students to pursue graduate studies at Stanford University.",
+         "contact": "africafellows@stanford.edu",
+         "website": "https://www.stanford.edu/africafellows",
+         "matchCriteria": {
+            "subjects": [
+               "All subjects"
+            ],
+            "interests": [
+               "research",
+               "innovation",
+               "technology"
+            ],
+            "careers": [
+               "Researcher",
+               "Academic",
+               "Innovator"
+            ]
+         }
+      },
+      {
+         "id": 9,
+         "name": "Shell Nigeria Undergraduate Scholarship",
+         "category": "Nigerian Scholarships",
+         "provider": "Shell Petroleum Development Company",
+         "type": "Merit-Based",
+         "amount": "Full tuition + ₦250,000 per year",
+         "benefits": "Tuition coverage, book allowance, mentorship, internship opportunities",
+         "eligibility": {
+            "gpa": 3.0,
+            "fields": [
+               "Engineering",
+               "Geosciences",
+               "Medicine",
+               "Law",
+               "Agriculture"
+            ],
+            "nationality": "Nigerian",
+            "level": [
+               "undergraduate"
+            ],
+            "requirements": [
+               "JAMB score of 200+",
+               "Must be in 100 or 200 level"
+            ]
+         },
+         "deadline": "2026-07-20",
+         "applicationRequirements": [
+            "JAMB result",
+            "O'Level certificate",
+            "First year transcript (for 200 level applicants)",
+            "Letter of admission",
+            "State of origin certificate"
+         ],
+         "description": "Shell Nigeria Undergraduate Scholarship supports talented Nigerian students in key areas of study, providing financial and professional development opportunities.",
+         "contact": "scholarships@shell.com",
+         "website": "https://www.shell.com.ng/scholarships",
+         "matchCriteria": {
+            "subjects": [
+               "Mathematics",
+               "Science",
+               "Engineering",
+               "Medicine",
+               "Agriculture"
+            ],
+            "interests": [
+               "engineering",
+               "oil and gas",
+               "technology"
+            ],
+            "careers": [
+               "Petroleum Engineer",
+               "Geologist",
+               "Medical Doctor"
+            ]
+         }
+      },
+      {
+         "id": 10,
+         "name": "Google Africa Scholarship",
+         "category": "International Scholarships",
+         "provider": "Google",
+         "type": "Merit-Based",
+         "amount": "Full tuition + $5,000 per year",
+         "benefits": "Full tuition, internship at Google, mentorship, tech training",
+         "eligibility": {
+            "gpa": 3.0,
+            "fields": [
+               "Computer Science",
+               "Software Engineering",
+               "Data Science",
+               "AI"
+            ],
+            "nationality": "African",
+            "level": [
+               "undergraduate",
+               "postgraduate"
+            ],
+            "requirements": [
+               "Demonstrated passion for technology",
+               "Coding experience"
+            ]
+         },
+         "deadline": "2026-10-01",
+         "applicationRequirements": [
+            "Academic transcripts",
+            "Coding portfolio (GitHub)",
+            "Personal statement",
+            "Technical recommendation",
+            "Project documentation"
+         ],
+         "description": "Google Africa Scholarship provides comprehensive support to African students passionate about technology and computer science.",
+         "contact": "africatech@google.com",
+         "website": "https://www.google.com/africa/scholarships",
+         "matchCriteria": {
+            "subjects": [
+               "Computer Science",
+               "Mathematics",
+               "Technology"
+            ],
+            "interests": [
+               "technology",
+               "programming",
+               "innovation"
+            ],
+            "careers": [
+               "Software Developer",
+               "Data Scientist",
+               "Tech Entrepreneur"
+            ]
+         }
+      },
+      {
+         "id": 11,
+         "name": "Dangote Foundation Scholarship",
+         "category": "Nigerian Scholarships",
+         "provider": "Aliko Dangote Foundation",
+         "type": "Merit-Based",
+         "amount": "Full tuition + ₦500,000 per year",
+         "benefits": "Full tuition, accommodation, books, research grant",
+         "eligibility": {
+            "gpa": 3.2,
+            "fields": [
+               "Business",
+               "Engineering",
+               "Agriculture",
+               "Medicine",
+               "Technology"
+            ],
+            "nationality": "Nigerian",
+            "level": [
+               "undergraduate",
+               "postgraduate"
+            ],
+            "requirements": [
+               "Second class upper minimum",
+               "Strong academic record"
+            ]
+         },
+         "deadline": "2026-08-01",
+         "applicationRequirements": [
+            "Academic transcripts",
+            "CV/Resume",
+            "Business plan or research proposal",
+            "Recommendation letters",
+            "State of origin certificate"
+         ],
+         "description": "The Aliko Dangote Foundation Scholarship supports aspiring Nigerian entrepreneurs and professionals in key sectors of the economy.",
+         "contact": "scholarships@dangotefoundation.org",
+         "website": "https://www.dangotefoundation.org",
+         "matchCriteria": {
+            "subjects": [
+               "Business",
+               "Engineering",
+               "Agriculture",
+               "Medicine",
+               "Technology"
+            ],
+            "interests": [
+               "entrepreneurship",
+               "business",
+               "innovation"
+            ],
+            "careers": [
+               "Entrepreneur",
+               "Business Analyst",
+               "Engineer"
+            ]
+         }
+      },
+      {
+         "id": 12,
+         "name": "African Leadership Scholarship",
+         "category": "African Scholarships",
+         "provider": "African Leadership Academy",
+         "type": "Leadership-Based",
+         "amount": "Full tuition + leadership training",
+         "benefits": "Full tuition, leadership program, mentorship, network access",
+         "eligibility": {
+            "gpa": 3.0,
+            "fields": [
+               "All fields"
+            ],
+            "nationality": "African",
+            "level": [
+               "undergraduate"
+            ],
+            "requirements": [
+               "Age 15-19",
+               "Demonstrated leadership potential"
+            ]
+         },
+         "deadline": "2026-12-01",
+         "applicationRequirements": [
+            "Academic transcripts",
+            "Leadership experience documentation",
+            "Community impact evidence",
+            "Personal essay",
+            "Recommendation letters"
+         ],
+         "description": "The African Leadership Scholarship develops the next generation of African leaders through exceptional education and leadership development.",
+         "contact": "scholarships@africanleadership.org",
+         "website": "https://www.africanleadership.org",
+         "matchCriteria": {
+            "subjects": [
+               "All subjects"
+            ],
+            "interests": [
+               "leadership",
+               "community development",
+               "social impact"
+            ],
+            "careers": [
+               "Social Entrepreneur",
+               "Community Leader",
+               "Policy Maker"
+            ]
+         }
+      }
+   ]
+}

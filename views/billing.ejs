@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Billing - AI Career Predictor</title>
+   <link rel="stylesheet" href="/style.css">
+   <link rel="stylesheet" href="/payments.css">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+   <nav class="navbar">
+      <div class="nav-container">
+         <div class="logo">
+            <a href="/"><i class="fas fa-robot"></i><span>AI Career<span class="highlight">Predictor</span></span></a>
+         </div>
+         <ul class="nav-links">
+            <li><a href="/results">Results</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/billing" class="active">Billing</a></li>
+         </ul>
+      </div>
+   </nav>
+
+   <section class="pricing-hero">
+      <div class="container" style="max-width: 640px;">
+         <% if (cancelled) { %>
+            <div class="alert alert-success"><i class="fas fa-check"></i> Subscription cancelled successfully.</div>
+         <% } %>
+         <% if (error) { %>
+            <div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> <%= error %></div>
+         <% } %>
+
+         <div class="payment-result-card success" style="margin: var(--spacing-8) auto; text-align: left;">
+            <h1 style="font-size: var(--font-size-2xl); margin-bottom: var(--spacing-4);">
+               <i class="fas fa-receipt" style="color: var(--primary-500);"></i> Billing
+            </h1>
+
+            <div class="billing-detail">
+               <span class="label">Current plan</span>
+               <strong><%= plan ? plan.name : premiumPlan %></strong>
+            </div>
+
+            <% if (plan && plan.price) { %>
+               <div class="billing-detail">
+                  <span class="label">Amount</span>
+                  <strong><%= formatPrice(plan.price) %><%= plan.interval === 'month' ? '/month' : plan.interval === 'year' ? '/year' : ' (one-time)' %></strong>
+               </div>
+            <% } %>
+
+            <% if (email) { %>
+               <div class="billing-detail">
+                  <span class="label">Email</span>
+                  <strong><%= email %></strong>
+               </div>
+            <% } %>
+
+            <% if (expiresAt && premiumPlan !== 'lifetime') { %>
+               <div class="billing-detail">
+                  <span class="label">Renews / expires</span>
+                  <strong><%= new Date(expiresAt).toLocaleDateString('en-NG', { dateStyle: 'long' }) %></strong>
+               </div>
+            <% } %>
+
+            <% if (subscriptionCode) { %>
+               <hr style="margin: var(--spacing-6) 0; border: none; border-top: 1px solid var(--neutral-200);">
+               <p style="font-size: var(--font-size-sm); color: var(--neutral-600); margin-bottom: var(--spacing-4);">
+                  To cancel recurring billing, enter the email token Paystack sent to your inbox when you subscribed.
+               </p>
+               <form action="/billing/cancel-subscription" method="POST">
+                  <div class="form-group" style="margin-bottom: var(--spacing-3);">
+                     <input type="text" name="emailToken" required placeholder="Email token from Paystack"
+                        class="checkout-email" style="width:100%;padding:12px;border:1px solid var(--neutral-300);border-radius:8px;">
+                  </div>
+                  <button type="submit" class="btn btn-secondary btn-block">Cancel subscription</button>
+               </form>
+            <% } else if (premiumPlan === 'lifetime') { %>
+               <p style="font-size: var(--font-size-sm); color: var(--success-700); margin-top: var(--spacing-4);">
+                  <i class="fas fa-infinity"></i> Lifetime access — no recurring charges.
+               </p>
+            <% } %>
+
+            <div class="result-actions" style="margin-top: var(--spacing-6);">
+               <a href="/results" class="btn btn-primary btn-block">Back to Results</a>
+            </div>
+         </div>
+      </div>
+   </section>
+</body>
+
+</html>
